@@ -37,6 +37,7 @@ mapview::mapview(rnet_schools_raster) +
 # could include length or length * n_cycling or number of segments
 # Idea: find cells that are above a threshold value in both schools and commute layers
 # Filter out single or double isolated pixels to identify routes where there is overlap
+# https://cran.r-project.org/web/packages/imager/vignettes/pixsets.html
 # Is this possible? Check methods
 # Update school origin-destination data
 # Data at higher resolution?
