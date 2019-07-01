@@ -2,6 +2,7 @@
 #test edit
 library(dplyr)
 
+#EPSG:27700 is the code for the British National Grid. So after getting the IoW route network this then transforms it to the British National Grid, so that distances are specified in metres instead of degrees latlong
 rnet_commute = pct::get_pct_rnet(region = "isle-of-wight") %>% sf::st_transform(27700)
 rnet_schools = pct::get_pct_rnet(region = "isle-of-wight", purpose = "school") %>% sf::st_transform(27700)
 schools = sf::read_sf("https://github.com/npct/pct-outputs-national/raw/master/school/lsoa/d_all.geojson") %>% sf::st_transform(27700) 
