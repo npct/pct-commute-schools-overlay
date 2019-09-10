@@ -1,7 +1,9 @@
+Methods to identify safe routes to schools in residential areas
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pct-commute-schools-overlay
+# Introduction
 
 <!-- badges: start -->
 

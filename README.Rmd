@@ -1,5 +1,7 @@
 ---
 output: github_document
+# output: bookdown::pdf_document2
+title: "Methods to identify safe routes to schools in residential areas"
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -12,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pct-commute-schools-overlay
+# Introduction
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -33,6 +35,10 @@ This shows the aggregation effect of rasterising the road data.
 At a higher resolution, we can see how individual roads are lost, but the overall picture is retained.
 
 ```{r, out.width="33%", fig.show='hold'}
+# i = magick::image_read("200m_clxm_leeds_centre.png")
+# i_border = magick::image_border(image = i, color = "white", geometry = "10x10")
+# i_border
+# magick::image_write(i_border, "200m_clxm_leeds_centre.png")
 knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_centre.png", "200m_clxm_leeds_centre.png"))
 ```
 
