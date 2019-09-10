@@ -1,6 +1,6 @@
 ---
-output: github_document
-# output: bookdown::pdf_document2
+# output: github_document
+output: bookdown::pdf_document2
 title: "Methods to identify safe routes to schools in residential areas"
 ---
 
@@ -25,16 +25,16 @@ The outputs should provide evidence in support of 'liveable streets', where the 
 
 ## Methods
 
-A range of metho
+Vector and raster approaches were explored, as illustrated in Figure \@ref(fig:combi1).
 
-```{r, out.width="50%", fig.show='hold'}
+```{r combi1, out.width="50%", fig.show='hold', fig.cap="Demonstration of vector vs raster representations of combined commute/school travel route networks in sample region (West Yorkshire)."}
 knitr::include_graphics(c("combined rnet.png", "combined rnet 1km raster.png"))
 ```
 
 This shows the aggregation effect of rasterising the road data.
 At a higher resolution, we can see how individual roads are lost, but the overall picture is retained.
 
-```{r, out.width="33%", fig.show='hold'}
+```{r, out.width="33%", fig.show='hold', fig.cap="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks."}
 # i = magick::image_read("200m_clxm_leeds_centre.png")
 # i_border = magick::image_border(image = i, color = "white", geometry = "10x10")
 # i_border
