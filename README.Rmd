@@ -1,0 +1,43 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# pct-commute-schools-overlay
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of pct-commute-schools-overlay is to explore to identify residential zones that would be served by a major safe route to school.
+
+The outputs should provide evidence in support of 'liveable streets', where the emphasis is on reducing car vehicle speeds and volumes and 'filtered permeability', where through traffic is allowed for cycling and walking, but not driving.
+
+## Methods
+
+A range of metho
+
+```{r, out.width="50%", fig.show='hold'}
+knitr::include_graphics(c("combined rnet.png", "combined rnet 1km raster.png"))
+```
+
+This shows the aggregation effect of rasterising the road data.
+At a higher resolution, we can see how individual roads are lost, but the overall picture is retained.
+
+```{r, out.width="33%", fig.show='hold'}
+knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_centre.png", "200m_clxm_leeds_centre.png"))
+```
+
+
+
+The starting point therefore is to first identify 
+
+

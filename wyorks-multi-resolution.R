@@ -33,6 +33,10 @@ plot(schools$geometry, add = TRUE)
 r = raster::raster(rnet_commute, resolution = 1000)
 # Note: the next line is sloooow, even for small region of IoW and with low spatial resolution (1 km)
 rnet_schools_raster = raster::rasterize(x = rnet_schools, y = r, field = "dutch_slc", fun = mean)
+
+# test with terra
+devtools::install_github("rspatial/terra")
+
 mapview::mapview(rnet_schools_raster) 
   mapview::mapview(sec_schools) +
   mapview::mapview(z)
