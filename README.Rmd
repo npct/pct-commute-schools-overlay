@@ -1,6 +1,6 @@
 ---
-# output: github_document
-output: bookdown::pdf_document2
+output: github_document
+# output: bookdown::pdf_document2
 title: "Methods to identify safe routes to schools in residential areas"
 ---
 
