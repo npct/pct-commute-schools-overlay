@@ -1,5 +1,6 @@
 # Aim: get and overlay route network data for schools + commute for a particular area
 library(dplyr)
+library(sf)
 
 ###Changed from Isle-of-Wight to west-yorkshire
 rnet_commute = pct::get_pct_rnet(region = "west-yorkshire") %>% sf::st_transform(27700)
@@ -109,3 +110,15 @@ mapview::mapview(wyorks100m_combined_lxm)
 ##Plot the vector map just for central Leeds###
 library(ggplot2)
 ggplot() + geom_sf(data = rnet_combined$geometry, col = rnet_combined$color) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+
+##Plot the schools only vector map just for central Leeds###
+library(ggplot2)
+ggplot() + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+
+##Tmap##creating xlim and ylim data sets
+leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
+                         st_as_sfc()
+
+tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color) 
+
+         
