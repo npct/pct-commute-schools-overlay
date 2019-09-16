@@ -2,10 +2,11 @@
 library(dplyr)
 library(sf)
 library(ggplot2)
+library(pct)
 
-###Changed from Isle-of-Wight to west-yorkshire
-rnet_commute = pct::get_pct_rnet(region = "west-yorkshire") %>% sf::st_transform(27700)
-rnet_schools = pct::get_pct_rnet(region = "west-yorkshire", purpose = "school") %>% sf::st_transform(27700)
+###Changed from Isle-of-Wight to west-yorkshire. This gets LSOA data (there is no MSOA route network data available)
+rnet_commute = pct::get_pct_rnet(region = "west-yorkshire",geography = "lsoa") %>% sf::st_transform(27700)
+rnet_schools = pct::get_pct_rnet(region = "west-yorkshire", purpose = "school",geography = "lsoa") %>% sf::st_transform(27700)
 
 schools = sf::read_sf("https://github.com/npct/pct-outputs-national/raw/master/school/lsoa/d_all.geojson") %>% sf::st_transform(27700) 
 wyorks = c("Leeds", "Bradford", "Kirklees", "Wakefield", "Calderdale")
@@ -31,6 +32,8 @@ plot(rnet_schools$geometry)
 plot(rnet_schools$geometry, col = rnet_schools$color)
 plot(schools$geometry, add = TRUE)
 
+
+#########Initial rasterisation###########
 # rasterisation of schools route network
 r = raster::raster(rnet_commute, resolution = 1000)
 # Note: the next line is sloooow, even for small region of IoW and with low spatial resolution (1 km)
@@ -77,6 +80,9 @@ rnet_combined$color = cut(x = rnet_combined$dutch_slc, breaks = breaks, labels =
 rnet_combined$color = as.character(rnet_combined$color)
 plot(rnet_combined$geometry, col = rnet_combined$color)
 
+
+
+##################Raster images##########################
 ###Create 1km raster for the combined route network, fun=length###
 rnet_combined_raster = raster::rasterize(x = rnet_combined, y = r, field = "dutch_slc", fun = length)
 mapview::mapview(rnet_combined_raster) 
@@ -126,7 +132,7 @@ plot(schools,add = TRUE)
 
 
 
-
+###########Selecting the most heavily used routes to school under Dutch model and 2011##############
 ##Selecting heavily used routes to school under Dutch model
 heavy_schools = rnet_schools[rnet_schools$dutch_slc>100,]
 plot(heavy_schools$geometry,col = heavy_schools$color)
@@ -147,16 +153,35 @@ plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
 plot(schools,add = TRUE)
 
 
-
+#########ONS data on builtup areas###########
 ##Built-up areas
 setwd("~/GitHub/pct-commute-schools-overlay")
 builtup = sf::read_sf("Builtup_Areas_December_2011_Boundaries_V2.geojson") %>% sf::st_transform(27700)
-buitupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
+builtupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
 
-ggplot() + geom_sf(data = builtup) + theme_bw()
+ggplot() + geom_sf(data = builtupsub) + theme_bw()
 
 
+#####LSOA Centroids ######
+wyorks_centroids = get_pct_centroids("west-yorkshire")
 
+setwd("\\\\ds.leeds.ac.uk/staff/staff7/geojta/GitHub/pct-commute-schools-overlay/west-yorks")
+wyorks_c = readRDS("c.Rds") %>% st_as_sf(wyorks_c)
+
+ggplot() + geom_sf(data = wyorks_c, color = "goldenrod1") + theme_bw()
+dist_lsoa = raster
+#########Now need to create a raster layer showing number of LSOA centroids within 500m
+pop_density = raster(xmn = 410000,xmx = 440000,ymn = 420000, ymx = 447000,res = 1000)
+projection(pop_density) = projection(builtup)
+
+values(pop_density) = runif(ncell(pop_density))
+hasValues(pop_density)
+
+plot(pop_density)
+plot(wyorks_centroids$geometry, add = TRUE)
+
+
+#############Vector maps of routes to schools###########
 ##ggplot for schools in central Leeds##
 library(ggplot2)
 ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
@@ -168,20 +193,19 @@ ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + g
 ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
 
 #heavily used routes again (dutch_slc)
-dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = buitupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-
+dutch_school = ggplot() + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 dutch_school
 
 #heavily used routes again (2011 cycling levels)
 now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 now_school
 
-##Tmap##creating xlim and ylim data sets
-leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
-                         st_as_sfc()
-
-library(tmap)
-leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color) 
+# ##Tmap##creating xlim and ylim data sets
+# leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
+#                          st_as_sfc()
+# 
+# library(tmap)
+# leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color) 
 
 
 
