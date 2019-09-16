@@ -1,0 +1,11 @@
+R package notes:
+
+Rtools - on Windows this is required to provide a C++ compiler. This is needed for packages such as terra.
+
+devtools - this contains the function devtools::install_github which is used to install new packages from github (including ones that aren't on CRAN)
+
+R Markdown 
+- read about this! See Robin's email for reading material.
+Ctrl + Shift + K  - this is used to compile documents (HTML/Github/PDF/Word)
+
+http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/

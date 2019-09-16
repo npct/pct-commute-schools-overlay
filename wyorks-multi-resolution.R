@@ -1,6 +1,7 @@
 # Aim: get and overlay route network data for schools + commute for a particular area
 library(dplyr)
 library(sf)
+library(ggplot2)
 
 ###Changed from Isle-of-Wight to west-yorkshire
 rnet_commute = pct::get_pct_rnet(region = "west-yorkshire") %>% sf::st_transform(27700)
@@ -121,21 +122,59 @@ colors = sf::sf.colors(n = length(breaks) - 1)
 plot(rnet_schools$geometry,col = rnet_schools$color)
 plot(schools,add = TRUE)
 
+
+
+
+
+
+##Selecting heavily used routes to school under Dutch model
 heavy_schools = rnet_schools[rnet_schools$dutch_slc>100,]
 plot(heavy_schools$geometry,col = heavy_schools$color)
 plot(schools,add = TRUE)
 
-##ggplot for schools, plus version for heavily used routes only##
-library(ggplot2)
-ggplot() + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+##Selecting heavily used routes to school in 2011
+heavy2011_schools = rnet_schools[rnet_schools$bicycle>5,] %>% na.omit()
+plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
+plot(schools,add = TRUE)
 
+# breaks2011 = c(-1, 1, 5, 10, 50)
+# colors2011 = sf::sf.colors(n = length(breaks2011) - 1)
+
+heavy2011_schools$color = cut(x = heavy2011_schools$bicycle, breaks = breaks, labels = colors)
+heavy2011_schools$color = as.character(heavy2011_schools$color)
+
+plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
+plot(schools,add = TRUE)
+
+
+
+##Built-up areas
+setwd("~/GitHub/pct-commute-schools-overlay")
+builtup = sf::read_sf("Builtup_Areas_December_2011_Boundaries_V2.geojson") %>% sf::st_transform(27700)
+buitupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
+
+ggplot() + geom_sf(data = builtup) + theme_bw()
+
+
+
+##ggplot for schools in central Leeds##
+library(ggplot2)
+ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+
+#version for heavily used routes only
 ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
 
 ##same for whole of west yorkshire
-ggplot() + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
+ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
 
-ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + theme_bw()
+#heavily used routes again (dutch_slc)
+dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = buitupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 
+dutch_school
+
+#heavily used routes again (2011 cycling levels)
+now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+now_school
 
 ##Tmap##creating xlim and ylim data sets
 leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
