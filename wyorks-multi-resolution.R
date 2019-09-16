@@ -30,7 +30,7 @@ plot(rnet_schools$geometry)
 plot(rnet_schools$geometry, col = rnet_schools$color)
 plot(schools$geometry, add = TRUE)
 
-# rasterisation
+# rasterisation of schools route network
 r = raster::raster(rnet_commute, resolution = 1000)
 # Note: the next line is sloooow, even for small region of IoW and with low spatial resolution (1 km)
 rnet_schools_raster = raster::rasterize(x = rnet_schools, y = r, field = "dutch_slc", fun = mean)
@@ -44,6 +44,7 @@ mapview::mapview(rnet_schools_raster)
 
 saveRDS(rnet_schools_raster, file = "wyorks_schools_raster.rds")
 
+# rasterisation of commute route network
 rnet_commute_raster = raster::rasterize(x = rnet_commute, y = r, field = "dutch_slc", fun = mean)
 mapview::mapview(rnet_commute_raster) +
   mapview::mapview(sec_commute) 
@@ -107,18 +108,42 @@ wyorks100m_combined_lxm = raster::rasterize(x = rnet_combined, y = r100, field =
 mapview::mapview(wyorks100m_combined_lxm)
 #writeRaster(wyorks200m_combined_lxm,"wyorks200m_combined_lxm.tiff")
 
-##Plot the vector map just for central Leeds###
+##Plot the combined vector map just for central Leeds###
 library(ggplot2)
 ggplot() + geom_sf(data = rnet_combined$geometry, col = rnet_combined$color) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
 
-##Plot the schools only vector map just for central Leeds###
+##Plot the schools only vector map just for central Leeds
+###Added schools point data
+breaks = c(-1, 10, 50, 100, 500, 1000, 5000)
+colors = sf::sf.colors(n = length(breaks) - 1)
+
+###Putting schools on a route network map
+plot(rnet_schools$geometry,col = rnet_schools$color)
+plot(schools,add = TRUE)
+
+heavy_schools = rnet_schools[rnet_schools$dutch_slc>100,]
+plot(heavy_schools$geometry,col = heavy_schools$color)
+plot(schools,add = TRUE)
+
+##ggplot for schools, plus version for heavily used routes only##
 library(ggplot2)
-ggplot() + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+ggplot() + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+
+ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+
+##same for whole of west yorkshire
+ggplot() + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
+
+ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + theme_bw()
+
 
 ##Tmap##creating xlim and ylim data sets
 leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
                          st_as_sfc()
 
-tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color) 
+library(tmap)
+leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color) 
+
+
 
          
