@@ -205,7 +205,7 @@ leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436
                          st_as_sfc()
 
 library(tmap)
-leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color)
+leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines("dutch_slc", col = rnet_schools$color)
 
 
 
