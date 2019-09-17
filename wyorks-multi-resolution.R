@@ -200,14 +200,14 @@ cgeom = st_coordinates(wyorks_centroids)
 
 # dist_matrix = pointDistance(grid2, cgeom, lonlat = FALSE)
 #within500m = dist_matrix[]
+
 #crossdist()
+
 dist_rast = distanceFromPoints(pop_density,cgeom)
 
 
-
-# masked = mask(dist_rast,)
 # ex = extract(dist_rast,values(dist_rast)<1000,na.omit=TRUE)
-dist_rast[dist_rast>800] = NA
+dist_rast[dist_rast>=800] = NA
 #Plot raster and LSOA centroids on the same map
 mdist = mask(dist_rast,builtup)
 
