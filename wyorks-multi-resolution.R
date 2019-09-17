@@ -200,12 +200,12 @@ dutch_school
 now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 now_school
 
-# ##Tmap##creating xlim and ylim data sets
-# leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
-#                          st_as_sfc()
-# 
-# library(tmap)
-# leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color) 
+##Tmap##creating xlim and ylim data sets
+leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
+                         st_as_sfc()
+
+library(tmap)
+leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines(col = rnet_schools$color)
 
 
 
