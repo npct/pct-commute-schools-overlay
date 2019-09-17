@@ -163,22 +163,60 @@ ggplot() + geom_sf(data = builtupsub) + theme_bw()
 
 
 #####LSOA Centroids ######
-wyorks_centroids = get_pct_centroids("west-yorkshire")
+wyorks_centroids = get_pct_centroids("west-yorkshire",geography = "lsoa") %>% sf::st_transform(27700)
 
 setwd("\\\\ds.leeds.ac.uk/staff/staff7/geojta/GitHub/pct-commute-schools-overlay/west-yorks")
 wyorks_c = readRDS("c.Rds") %>% st_as_sf(wyorks_c)
 
 ggplot() + geom_sf(data = wyorks_c, color = "goldenrod1") + theme_bw()
-dist_lsoa = raster
+
 #########Now need to create a raster layer showing number of LSOA centroids within 500m
-pop_density = raster(xmn = 410000,xmx = 440000,ymn = 420000, ymx = 447000,res = 1000)
+#create the fishnet
+# library(RColorBrewer)
+# 
+# grid <- st_make_grid(wyorks_centroids, cellsize = 500, what = "centers")
+# plot(grid)
+# dist = st_distance(wyorks_centroids,grid)
+# df = data.frame(dist = as.vector(dist)/1000,st_coordinates(grid))
+# col_dist = brewer.pal(11,"RdGy")
+# 
+# ggplot(df,aes(X,Y,fill=dist)) +
+#   geom_tile() +
+#   scale_fill_gradient(colours=rev(col_dist))
+################
+# grid2 = expand.grid(x = seq(from=410000,to=440000,by=100),y = seq(from=420000,to=447000,by=100))
+# grid2 = as.matrix(grid2)
+
+
+#################
+pop_density = raster(xmn = 410000,xmx = 440000,ymn = 420000, ymx = 447000,res = 100)
 projection(pop_density) = projection(builtup)
 
-values(pop_density) = runif(ncell(pop_density))
-hasValues(pop_density)
+# set.seed(0)
+# values(pop_density) = runif(ncell(pop_density))
+# hasValues(pop_density)
 
-plot(pop_density)
-plot(wyorks_centroids$geometry, add = TRUE)
+cgeom = st_coordinates(wyorks_centroids)
+
+# dist_matrix = pointDistance(grid2, cgeom, lonlat = FALSE)
+#within500m = dist_matrix[]
+#crossdist()
+dist_rast = distanceFromPoints(pop_density,cgeom)
+
+
+
+# masked = mask(dist_rast,)
+# ex = extract(dist_rast,values(dist_rast)<1000,na.omit=TRUE)
+dist_rast[dist_rast>800] = NA
+#Plot raster and LSOA centroids on the same map
+mdist = mask(dist_rast,builtup)
+
+
+mapview(mdist) +
+mapview(wyorks_centroids$geometry)
+
+
+# ggplot() + geom_raster(data = pop_density, aes(x = x, y = y))
 
 
 #############Vector maps of routes to schools###########
@@ -193,8 +231,12 @@ ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + g
 ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
 
 #heavily used routes again (dutch_slc)
-dutch_school = ggplot() + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
+dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 dutch_school
+
+mapview(mdist) + mapview(schools) + mapview(wyorks_c, color = "goldenrod1") 
+
++ coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 
 #heavily used routes again (2011 cycling levels)
 now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
@@ -205,7 +247,8 @@ leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436
                          st_as_sfc()
 
 library(tmap)
-leeds_map = tm_shape(rnet_schools, bbox = leeds_centre) + tm_lines("dutch_slc", col = rnet_schools$color)
+rnet_schools_omit = na.omit(rnet_schools)
+tm_shape(rnet_schools_omit) + tm_lines("dutch_slc", col = rnet_schools_omit$color)
 
 
 
