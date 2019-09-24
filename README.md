@@ -3,7 +3,7 @@ Methods to identify safe routes to schools in residential areas
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Introduction
+## Introduction
 
 <!-- badges: start -->
 
@@ -58,7 +58,7 @@ to look at where these zones might be served by major safe routes to
 schools. Residential zones are defined as built-up areas with a non-zero
 population.
 
-### Discussion
+## Discussion
 
 It is important to be aware that while these route networks can reveal a
 great deal about where people cycle, any given road section within the
