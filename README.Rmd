@@ -1,7 +1,7 @@
 ---
-output: github_document
+# output: github_document
 # output: word_document
-# output: bookdown::pdf_document2
+output: bookdown::pdf_document2
 title: "Methods to identify safe routes to schools in residential areas"
 ---
 
@@ -55,7 +55,7 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 
 We must first identify residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
 
-```{r combi3, fig.show='hold', fig.cap="The location of schools, built-up areas, and heavily used routes to schools in the Leeds and Bradford area."}
+```{r combi3, out.width="100%", fig.show='hold', fig.cap="The location of schools, built-up areas, and heavily used routes to schools in the Leeds and Bradford area."}
 knitr::include_graphics("schools_and_lsoa.png")
 ```
 
