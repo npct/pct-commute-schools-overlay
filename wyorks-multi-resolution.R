@@ -188,7 +188,7 @@ ggplot() + geom_sf(data = wyorks_c, color = "goldenrod1") + theme_bw()
 # grid2 = as.matrix(grid2)
 
 
-#################
+########Plotting distance from LSOA centroids#########
 pop_density = raster(xmn = 410000,xmx = 440000,ymn = 420000, ymx = 447000,res = 100)
 projection(pop_density) = projection(builtup)
 
@@ -205,19 +205,21 @@ cgeom = st_coordinates(wyorks_centroids)
 
 dist_rast = distanceFromPoints(pop_density,cgeom)
 
-
+#Specify distance from centroids to include
 # ex = extract(dist_rast,values(dist_rast)<1000,na.omit=TRUE)
 dist_rast[dist_rast>=800] = NA
-#Plot raster and LSOA centroids on the same map
+#Mask distance raster using built-up areas
 mdist = mask(dist_rast,builtup)
 
-
+#Plot raster and LSOA centroids on the same map
 mapview(mdist) +
 mapview(wyorks_centroids$geometry)
 
 
 # ggplot() + geom_raster(data = pop_density, aes(x = x, y = y))
 
+
+buff = st_buffer(x = schools, dist = 1000)
 
 #############Vector maps of routes to schools###########
 ##ggplot for schools in central Leeds##
@@ -234,7 +236,8 @@ ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col =
 dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 dutch_school
 
-mapview(mdist) + mapview(schools) + mapview(wyorks_c, color = "goldenrod1") 
+mapview(mdist) + mapview(schools) 
+# + mapview(wyorks_c, color = "goldenrod1") 
 
 + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 
