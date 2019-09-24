@@ -1,5 +1,6 @@
 ---
-output: word_document
+output: github_document
+# output: word_document
 # output: bookdown::pdf_document2
 title: "Methods to identify safe routes to schools in residential areas"
 ---
