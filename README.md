@@ -25,10 +25,24 @@ active. Enabling children to travel safely to school by bicycle will
 help them to remain active while at the same time contributing to
 reductions in air pollution, congestion and carbon emissions.
 
+Reducing air pollution around schools is a key concern. This was
+recently highlighted by the London Councils Environment Directors’
+Network and the Association of Directors of Public Health, who called
+for “action to mitigate pollution hotspots, particularly those around
+schools” (ref). Meanwhile, Leeds has seen a proposal to build a new
+car-free primary school, designed with no parking spaces for staff or
+visitors and where drop-offs will be discouraged (ref).
+
+Travel to schools can also be seen as a way of representing other
+journeys within residential areas. In contrast with workplaces, which
+tend to be highly concentrated in city centres and out-of-town
+employment zones, schools are much more widely dispersed throughout
+residential areas such as suburbs, towns and villages; thus school
+journeys are likely to more closely align with the other journeys people
+make within these residential areas.
+
 We illustrate the potential for safe routes to schools using data from
-West Yorkshire and Leeds, a city which has recently seen a proposal to
-build a new car-free primary school, designed with no parking spaces for
-staff or visitors and where drop-offs will be discouraged.
+Leeds and West Yorkshire.
 
 ## Methods
 
@@ -53,10 +67,13 @@ using.
 
 <img src="combined_rnet_leeds_centre.png" title="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks." alt="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks." width="33%" /><img src="100m_clxm_leeds_centre.png" title="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks." alt="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks." width="33%" /><img src="200m_clxm_leeds_centre.png" title="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks." alt="The vector route network, 100m and 200m resolution raster images for the centre of Leeds, showing the combined commute/school travel networks." width="33%" />
 
-The starting point therefore is to first identify residential zones then
-to look at where these zones might be served by major safe routes to
-schools. Residential zones are defined as built-up areas with a non-zero
-population.
+We must first identify residential zones then look at where these zones
+might be served by major safe routes to schools. Residential zones are
+defined as built-up areas with a non-zero population, using ONS data
+(ref).
+
+![The location of schools, built-up areas, and heavily used routes to
+schools in the Leeds and Bradford area.](schools_and_lsoa.png)
 
 ## Discussion
 
