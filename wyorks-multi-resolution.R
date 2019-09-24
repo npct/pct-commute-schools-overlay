@@ -158,8 +158,8 @@ plot(schools,add = TRUE)
 setwd("~/GitHub/pct-commute-schools-overlay")
 builtup = sf::read_sf("Builtup_Areas_December_2011_Boundaries_V2.geojson") %>% sf::st_transform(27700)
 builtupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
+# builtup_jun17 = sf::read_sf("Builtup_Areas_December_2011_Boundaries_jun17.geojson") %>% sf::st_transform(27700)
 
-ggplot() + geom_sf(data = builtupsub) + theme_bw()
 
 
 #####LSOA Centroids ######
@@ -169,6 +169,8 @@ setwd("\\\\ds.leeds.ac.uk/staff/staff7/geojta/GitHub/pct-commute-schools-overlay
 wyorks_c = readRDS("c.Rds") %>% st_as_sf(wyorks_c)
 
 ggplot() + geom_sf(data = wyorks_c, color = "goldenrod1") + theme_bw()
+
+ggplot() + geom_sf(data = heavy_schools) + geom_sf(data = builtup)
 
 #########Now need to create a raster layer showing number of LSOA centroids within 500m
 #create the fishnet
@@ -219,7 +221,22 @@ mapview(wyorks_centroids$geometry)
 # ggplot() + geom_raster(data = pop_density, aes(x = x, y = y))
 
 
-buff = st_buffer(x = schools, dist = 1000)
+buff1 = st_buffer(x = schools[1,], dist = 1000)
+cont = st_contains(x = wyorks_centroids,y = buff)
+
+x2 <- map_lgl(cont, function(x) {
+  if (length(x) == 1) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+})
+
+ggplot()+geom_sf(data = schools)
+
+ggplot()+geom_sf(data = wyorks_centroids)
+
+ggplot()+geom_sf(data = st_intersection(wyorks_centroids,st_buffer(schools,500)))
 
 #############Vector maps of routes to schools###########
 ##ggplot for schools in central Leeds##
@@ -233,17 +250,40 @@ ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + g
 ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
 
 #heavily used routes again (dutch_slc)
-dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
+dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 dutch_school
+
+#Intersch clips routes at the boundary of the builtup area. 
+#How to only include routes that are fully within the residential areas? st_within and st_covered_by don't give any output
+##what I really want to do is clip routes at the boundary of the raster  - which combines the builtup area with distance from centroids##
+intersch = st_intersection(heavy_schools,builtup)
+# coveredsch = st_covered_by(heavy_schools,builtup)
+
+ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = intersch$geometry, col = intersch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
+
+# ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = coveredsch$geometry, col = coveredsch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 
 mapview(mdist) + mapview(schools) 
 # + mapview(wyorks_c, color = "goldenrod1") 
 
 + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw() 
 
-#heavily used routes again (2011 cycling levels)
+
+ggplot() + geom_sf(data = builtup) + geom_tile(data = mdist)
+
+
+tmaptools::palette_explorer()
+
+##tmap with builtup areas raster, schools and routes to schools all together##Could find way to edit legend title, have simply removed legend altogether instead
+tmap_mode("plot")
+tm_shape(mdist) + tm_raster(palette = "-Oranges") + tm_layout(legend.show = FALSE) +
+tm_shape(schools) + tm_symbols(col="green",scale = 0.5) +
+tm_shape(intersch) + tm_lines()
+
+  #heavily used routes again (2011 cycling levels)
 now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 now_school
+
 
 ##Tmap##creating xlim and ylim data sets
 leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
