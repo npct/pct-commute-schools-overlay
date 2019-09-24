@@ -1,7 +1,7 @@
 ---
-# output: github_document
+output: github_document
 # output: word_document
-output: bookdown::pdf_document2
+# output: bookdown::pdf_document2
 title: "Methods to identify safe routes to schools in residential areas"
 ---
 
@@ -55,9 +55,10 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 
 We must first identify residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
 
-```{r combi3, out.width="100%", fig.show='hold', fig.cap="The location of schools, built-up areas, and heavily used routes to schools in the Leeds and Bradford area."}
-knitr::include_graphics("schools_and_lsoa.png")
+```{r combi3, out.width="50%", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area."}
+knitr::include_graphics(c("schools_and_lsoa.png","routes_schools_intersch.png"))
 ```
+(i)(left) Showing routes which are estimated to carry at least 100 journeys to school under the dutch_slc scenario. Schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. (ii)(right) Schools in green, with residential areas defined as areas within 800m of an LSOA centroid. Routes are clipped within the ONS-defined built-up areas.
 
 ## Discussion
 
