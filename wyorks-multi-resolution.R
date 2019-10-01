@@ -68,67 +68,67 @@ rnet_schools$color = as.character(rnet_schools$color)
 # Data at higher resolution?
 # New primary schools? Ask Martin
 
-####Create a combined route network########
-commute_less = rnet_commute[,c(1,6,8,9)]
-schools_less = rnet_schools[,c(1,5,6,7)]
-
-combine = rbind(commute_less,schools_less)
-summary(combine)
-
-###Creating the route network###
-rnet_combined = stplanr::overline2(x = combine, attrib = "dutch_slc")
-
-rnet_combined$color = cut(x = rnet_combined$dutch_slc, breaks = breaks, labels = colors)
-rnet_combined$color = as.character(rnet_combined$color)
-plot(rnet_combined$geometry, col = rnet_combined$color)
+# ####Create a combined route network########
+# commute_less = rnet_commute[,c(1,6,8,9)]
+# schools_less = rnet_schools[,c(1,5,6,7)]
+#
+# combine = rbind(commute_less,schools_less)
+# summary(combine)
+#
+# ###Creating the route network###
+# rnet_combined = stplanr::overline2(x = combine, attrib = "dutch_slc")
+#
+# rnet_combined$color = cut(x = rnet_combined$dutch_slc, breaks = breaks, labels = colors)
+# rnet_combined$color = as.character(rnet_combined$color)
+# plot(rnet_combined$geometry, col = rnet_combined$color)
 
 
 
 ##################Raster images##########################
-###Create 1km raster for the combined route network, fun=length###
-rnet_combined_raster = raster::rasterize(x = rnet_combined, y = r, field = "dutch_slc", fun = length)
-mapview::mapview(rnet_combined_raster)
-
-###Create 200m raster for the combined route network, fun=length###
-r200 = raster::raster(rnet_commute, resolution = 200)
-rnet_combined_raster200 = raster::rasterize(x = rnet_combined, y = r200, field = "dutch_slc", fun = length)
-mapview::mapview(rnet_combined_raster200)
-
-###Create 200m raster for the combined route network, fun=mean###
-raster200m_combined_mean = raster::rasterize(x = rnet_combined, y = r200, field = "dutch_slc", fun = mean)
-mapview::mapview(raster200m_combined_mean)
-
-##Calculate length*mean for a 200m raster###
-wyorks200m_combined_lxm = overlay(rnet_combined_raster200,raster200m_combined_mean,fun=function(r1,r2){return(r1*r2)})
-mapview::mapview(wyorks200m_combined_lxm)
-
-###Create 100m raster for the combined route network, fun=length###
-r100 = raster::raster(rnet_commute, resolution = 100)
-wyorks100m_combined_length = raster::rasterize(x = rnet_combined, y = r100, field = "dutch_slc", fun = length)
-mapview::mapview(wyorks100m_combined_length)
-
-###Create 100m raster for the combined route network, fun=mean###
-wyorks100m_combined_mean = raster::rasterize(x = rnet_combined, y = r100, field = "dutch_slc", fun = mean)
-mapview::mapview(wyorks100m_combined_mean)
-
-##Calculate length*mean for a 100m raster###
-wyorks100m_combined_lxm = raster::rasterize(x = rnet_combined, y = r100, field = "dutch_slc", fun = function(x,...){return(length(x)*mean(x))})
-#wyorks100m_combined_lxm = overlay(wyorks100m_combined_length,wyorks100m_combined_mean,fun=function(r1,r2){return(r1*r2)})
-mapview::mapview(wyorks100m_combined_lxm)
-#writeRaster(wyorks200m_combined_lxm,"wyorks200m_combined_lxm.tiff")
-
-##Plot the combined vector map just for central Leeds###
-library(ggplot2)
-ggplot() + geom_sf(data = rnet_combined$geometry, col = rnet_combined$color) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
-
-##Plot the schools only vector map just for central Leeds
-###Added schools point data
-breaks = c(-1, 10, 50, 100, 500, 1000, 5000)
-colors = sf::sf.colors(n = length(breaks) - 1)
-
-###Putting schools on a route network map
-plot(rnet_schools$geometry,col = rnet_schools$color)
-plot(schools,add = TRUE)
+# ###Create 1km raster for the combined route network, fun=length###
+# rnet_combined_raster = raster::rasterize(x = rnet_combined, y = r, field = "dutch_slc", fun = length)
+# mapview::mapview(rnet_combined_raster)
+#
+# ###Create 200m raster for the combined route network, fun=length###
+# r200 = raster::raster(rnet_commute, resolution = 200)
+# rnet_combined_raster200 = raster::rasterize(x = rnet_combined, y = r200, field = "dutch_slc", fun = length)
+# mapview::mapview(rnet_combined_raster200)
+#
+# ###Create 200m raster for the combined route network, fun=mean###
+# raster200m_combined_mean = raster::rasterize(x = rnet_combined, y = r200, field = "dutch_slc", fun = mean)
+# mapview::mapview(raster200m_combined_mean)
+#
+# ##Calculate length*mean for a 200m raster###
+# wyorks200m_combined_lxm = overlay(rnet_combined_raster200,raster200m_combined_mean,fun=function(r1,r2){return(r1*r2)})
+# mapview::mapview(wyorks200m_combined_lxm)
+#
+# ###Create 100m raster for the combined route network, fun=length###
+# r100 = raster::raster(rnet_commute, resolution = 100)
+# wyorks100m_combined_length = raster::rasterize(x = rnet_combined, y = r100, field = "dutch_slc", fun = length)
+# mapview::mapview(wyorks100m_combined_length)
+#
+# ###Create 100m raster for the combined route network, fun=mean###
+# wyorks100m_combined_mean = raster::rasterize(x = rnet_combined, y = r100, field = "dutch_slc", fun = mean)
+# mapview::mapview(wyorks100m_combined_mean)
+#
+# ##Calculate length*mean for a 100m raster###
+# wyorks100m_combined_lxm = raster::rasterize(x = rnet_combined, y = r100, field = "dutch_slc", fun = function(x,...){return(length(x)*mean(x))})
+# #wyorks100m_combined_lxm = overlay(wyorks100m_combined_length,wyorks100m_combined_mean,fun=function(r1,r2){return(r1*r2)})
+# mapview::mapview(wyorks100m_combined_lxm)
+# #writeRaster(wyorks200m_combined_lxm,"wyorks200m_combined_lxm.tiff")
+#
+# ##Plot the combined vector map just for central Leeds###
+# library(ggplot2)
+# ggplot() + geom_sf(data = rnet_combined$geometry, col = rnet_combined$color) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+#
+# ##Plot the schools only vector map just for central Leeds
+# ###Added schools point data
+# breaks = c(-1, 10, 50, 100, 500, 1000, 5000)
+# colors = sf::sf.colors(n = length(breaks) - 1)
+#
+# ###Putting schools on a route network map
+# plot(rnet_schools$geometry,col = rnet_schools$color)
+# plot(schools,add = TRUE)
 
 
 
@@ -137,28 +137,28 @@ plot(schools,add = TRUE)
 ###########Selecting the most heavily used routes to school under Dutch model and 2011##############
 ##Selecting heavily used routes to school under Dutch model
 heavy_schools = rnet_schools[rnet_schools$dutch_slc>100,]
-plot(heavy_schools$geometry,col = heavy_schools$color)
-plot(schools,add = TRUE)
+# plot(heavy_schools$geometry,col = heavy_schools$color)
+# plot(schools,add = TRUE)
 
-##Selecting heavily used routes to school in 2011
-heavy2011_schools = rnet_schools[rnet_schools$bicycle>5,] %>% na.omit()
-plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
-plot(schools,add = TRUE)
+# ##Selecting heavily used routes to school in 2011
+# heavy2011_schools = rnet_schools[rnet_schools$bicycle>5,] %>% na.omit()
+# plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
+# plot(schools,add = TRUE)
 
 # breaks2011 = c(-1, 1, 5, 10, 50)
 # colors2011 = sf::sf.colors(n = length(breaks2011) - 1)
-
-heavy2011_schools$color = cut(x = heavy2011_schools$bicycle, breaks = breaks, labels = colors)
-heavy2011_schools$color = as.character(heavy2011_schools$color)
-
-plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
-plot(schools,add = TRUE)
+#
+# heavy2011_schools$color = cut(x = heavy2011_schools$bicycle, breaks = breaks, labels = colors)
+# heavy2011_schools$color = as.character(heavy2011_schools$color)
+#
+# plot(heavy2011_schools$geometry,col = heavy2011_schools$color)
+# plot(schools,add = TRUE)
 
 
 #########ONS data on builtup areas###########
 ##Built-up areas
-setwd("~/GitHub/pct-commute-schools-overlay")
-setwd("/home/rstudio/data/npct/pct-commute-schools-overlay")
+# setwd("~/GitHub/pct-commute-schools-overlay")
+# setwd("/home/rstudio/data/npct/pct-commute-schools-overlay")
 builtup = sf::read_sf("Builtup_Areas_December_2011_Boundaries_V2.geojson") %>% sf::st_transform(27700)
 builtupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
 # builtup_jun17 = sf::read_sf("Builtup_Areas_December_2011_Boundaries_jun17.geojson") %>% sf::st_transform(27700)
@@ -227,22 +227,24 @@ mapview(wyorks_centroids$geometry)
 # buff = st_buffer(x = schools, dist = 500)
 # cont = st_contains(x = wyorks_centroids,y = buff)
 
+##500m buffer around LSOA centroids
 lsoa_buff = st_buffer(x = wyorks_centroids, dist = 500)
+#now need to mask this for builtup areas only (but the mask() function is for raster objects
+res_buff = st_intersection(builtup,lsoa_buff)
 
-
-x2 <- map_lgl(cont, function(x) {
-  if (length(x) == 1) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
-})
-
-ggplot()+geom_sf(data = schools)
-
-ggplot()+geom_sf(data = wyorks_centroids)
-
-ggplot()+geom_sf(data = st_intersection(wyorks_centroids,st_buffer(schools,500)))
+# x2 <- map_lgl(cont, function(x) {
+#   if (length(x) == 1) {
+#     return(TRUE)
+#   } else {
+#     return(FALSE)
+#   }
+# })
+#
+# ggplot()+geom_sf(data = schools)
+#
+# ggplot()+geom_sf(data = wyorks_centroids)
+#
+# ggplot()+geom_sf(data = st_intersection(wyorks_centroids,st_buffer(schools,500)))
 
 #############Vector maps of routes to schools###########
 ##ggplot for schools in central Leeds##
@@ -260,11 +262,15 @@ dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) +
 dutch_school
 
 #Intersch clips routes at the boundary of the builtup area.
+#Intersch_res clips routes at the boundary of the residential areas (<=500m from an LSOA centroid; masked by built-up areas)
 #How to only include routes that are fully within the residential areas? st_within and st_covered_by don't give any output
 ##what I really want to do is clip routes at the boundary of the raster  - which combines the builtup area with distance from centroids##
 intersch = st_intersection(heavy_schools,builtup)
-intersch_res = st_intersection(heavy_schools,lsoa_buff)
+intersch_res = st_intersection(heavy_schools,res_buff)
 # coveredsch = st_covered_by(heavy_schools,builtup)
+
+
+##Extra
 
 ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = intersch$geometry, col = intersch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 
