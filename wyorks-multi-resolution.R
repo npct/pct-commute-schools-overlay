@@ -309,4 +309,8 @@ rnet_schools_omit = na.omit(rnet_schools)
 tm_shape(rnet_schools_omit) + tm_lines("dutch_slc", col = rnet_schools_omit$color)
 
 
+# save results ------------------------------------------------------------
+
+saveRDS(heavy_schools, "heavy_schools-wy-100+godutch.Rds")
+
 

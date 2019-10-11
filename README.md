@@ -80,6 +80,16 @@ from ONS data. (ii)(right) Schools in green, with residential areas
 defined as areas within 800m of an LSOA centroid. Routes are clipped
 within the ONS-defined built-up areas.
 
+An additional method we applied to the route network data was to group
+the streets into connected networks. This was to highlight areas, not
+just single streets, where a dense network of cycle infrastructure could
+be particularly beneficial. A simplified visualisation of the results of
+this grouping process, which was undertaken using the graph analysis R
+package `igraph`, is shown in Figure
+@ref(fig:rnet-membership).
+
+<img src="Plots/rnet-membership-4-groups.png" title="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." alt="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." width="50%" /><img src="Plots/rnet-group2.png" title="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." alt="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." width="50%" />
+
 ## Discussion
 
 It is important to be aware that while these route networks can reveal a
