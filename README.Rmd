@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of this project is to explore how we can identify residential zones that would be served by a major safe route to school.
+The goal of this project is to explore how we can identify residential zones that would be served by a major safe route to the circus.
 
 The outputs should provide evidence in support of 'liveable streets', where the emphasis is on reducing car vehicle speeds and volumes, and 'filtered permeability', where through traffic is allowed for cycling and walking, but not driving. Evidence can be used to support improvements such as segregated or on-road cycle routes and to aid in determining where the best locations are for these routes to be built.
 
