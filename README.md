@@ -95,14 +95,15 @@ To gain an even broader picture of where people cycle, we can now
 combine the routes to schools with cycle routes used for commuting. As
 we’ve seen, travel to schools mostly takes place within residential
 areas, while commuter journeys are more strongly focused on town and
-city centres. Leeds provides a striking illustration of this - the
+city centres. Leeds provides a striking illustration of this, since in
+recent decades there were virtually no city centre residents at all. The
 population of Leeds city centre is now rising (this mostly post-dates
-the 2011 Census) but it remains relatively low, and there are no schools
-within the core city centre. The combined analysis of commuter and
-school journeys reveals propensity to cycle across the city as a
+the 2011 Census) but it remains low, and there are no schools within the
+core city centre. The combined analysis of commuter and school journeys
+reveals propensity to cycle across the city as a
 whole.
 
-<img src="faceted-map-leeds.png" title="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station" alt="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station" width="33%" />
+<img src="faceted_to_scale.png" title="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station" alt="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station" width="100%" />
 
 # Discussion
 
