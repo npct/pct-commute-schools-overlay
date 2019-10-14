@@ -3,7 +3,7 @@ Methods to identify safe routes to schools in residential areas
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## Introduction
+# Introduction
 
 <!-- badges: start -->
 
@@ -38,13 +38,14 @@ journeys within residential areas. In contrast with workplaces, which
 tend to be highly concentrated in city centres and out-of-town
 employment zones, schools are much more widely dispersed throughout
 residential areas such as suburbs, towns and villages; thus school
-journeys are likely to more closely align with the other journeys people
-make within these residential areas.
+journeys are likely to more closely align with the other non-commute
+journeys that people make within these residential areas, such as
+visiting friends or accessing local shops and services.
 
 We illustrate the potential for safe routes to schools using data from
 Leeds and West Yorkshire.
 
-## Methods
+# Methods
 
 To investigate cycle propensity, vector and raster approaches were
 explored, as illustrated in Figure
@@ -90,7 +91,20 @@ package `igraph`, is shown in Figure
 
 <img src="Plots/rnet-membership-4-groups.png" title="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." alt="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." width="50%" /><img src="Plots/rnet-group2.png" title="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." alt="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group." width="50%" />
 
-## Discussion
+To gain an even broader picture of where people cycle, we can now
+combine the routes to schools with cycle routes used for commuting. As
+we’ve seen, travel to schools mostly takes place within residential
+areas, while commuter journeys are more strongly focused on town and
+city centres. Leeds provides a striking illustration of this - the
+population of Leeds city centre is now rising (this mostly post-dates
+the 2011 Census) but it remains relatively low, and there are no schools
+within the core city centre. The combined analysis of commuter and
+school journeys reveals propensity to cycle across the city as a
+whole.
+
+<img src="faceted-map-leeds.png" title="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station" alt="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station" width="33%" />
+
+# Discussion
 
 It is important to be aware that while these route networks can reveal a
 great deal about where people cycle, any given road section within the

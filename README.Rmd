@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of this project is to explore how we can identify residential zones that would be served by a major safe route to the circus.
+The goal of this project is to explore how we can identify residential zones that would be served by a major safe route to school.
 
 The outputs should provide evidence in support of 'liveable streets', where the emphasis is on reducing car vehicle speeds and volumes, and 'filtered permeability', where through traffic is allowed for cycling and walking, but not driving. Evidence can be used to support improvements such as segregated or on-road cycle routes and to aid in determining where the best locations are for these routes to be built.
 
@@ -28,7 +28,7 @@ Inactivity is a major cause of a range of physical and mental health conditions 
 
 Reducing air pollution around schools is a key concern. This was recently highlighted by the London Councils Environment Directors' Network and the Association of Directors of Public Health, who called for "action to mitigate pollution hotspots, particularly those around schools" (ref). Meanwhile, Leeds has seen a proposal to build a new car-free primary school, designed with no parking spaces for staff or visitors and where drop-offs will be discouraged (ref). 
 
-Travel to schools can also be seen as a way of representing other journeys within residential areas. In contrast with workplaces, which tend to be highly concentrated in city centres and out-of-town employment zones, schools are much more widely dispersed throughout residential areas such as suburbs, towns and villages; thus school journeys are likely to more closely align with the other journeys people make within these residential areas. 
+Travel to schools can also be seen as a way of representing other journeys within residential areas. In contrast with workplaces, which tend to be highly concentrated in city centres and out-of-town employment zones, schools are much more widely dispersed throughout residential areas such as suburbs, towns and villages; thus school journeys are likely to more closely align with the other non-commute journeys that people make within these residential areas, such as visiting friends or accessing local shops and services. 
 
 We illustrate the potential for safe routes to schools using data from Leeds and West Yorkshire.
 
@@ -68,7 +68,11 @@ A simplified visualisation of the results of this grouping process, which was un
 knitr::include_graphics(c("Plots/rnet-membership-4-groups.png","Plots/rnet-group2.png"))
 ```
 
+To gain an even broader picture of where people cycle, we can now combine the routes to schools with cycle routes used for commuting. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this - the population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains relatively low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
 
+``` {r faceted, out.width="33%", fig.show="hold", fig.cap="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station"}
+knitr::include_graphics("faceted-map-leeds.png")
+```
 
 # Discussion
 

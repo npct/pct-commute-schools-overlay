@@ -153,7 +153,7 @@ levels(rnet_all$layer)
 tm_shape(rnet_all) +
   tm_lines(lwd = "dutch_slc", legend.lwd.show = F, scale = 9) +
   tm_facets(by = "layer")
-tmap_save(.Last.value,"faceted-map-leeds")
+tmap_save(.Last.value,"faceted-map-leeds.png")
 # ###Putting schools on a route network map
 # plot(rnet_schools$geometry,col = rnet_schools$color)
 # plot(schools,add = TRUE)
