@@ -36,6 +36,11 @@ tm_shape(rnet) +
 tmap_save(.Last.value, "Plots/rnet-membership-4-groups.png")
 magick::image_read("Plots/rnet-membership-4-groups.png")
 
+rnet_group1 = rnet[rnet$membership == biggest_n_groups[1], ]
+tm_shape(rnet_group1) +
+  tm_lines("dutch_slc", lwd = "dutch_slc", palette = "viridis", scale = 9) +
+  tm_scale_bar()
+
 rnet_group2 = rnet[rnet$membership == biggest_n_groups[2], ]
 m = tm_shape(rnet_group2) +
   tm_lines("dutch_slc", lwd = "dutch_slc", palette = "viridis", scale = 9) +
@@ -43,3 +48,18 @@ m = tm_shape(rnet_group2) +
 tmap_save(m, "rnet-group2.html")
 m_image = webshot::webshot("rnet-group2.html", file = "Plots/rnet-group2.png", vwidth = 500, vheight = 400)
 magick::image_read("Plots/rnet-group2.png")
+
+##Total length of the top networks######
+rnet$segment_length = st_length(rnet)
+
+sum(rnet$segment_length[rnet$membership_summary == 1])
+sum(rnet$segment_length[rnet$membership_summary == 2])
+
+##Mean usage of the top networks#####
+rnet$weighteduse = rnet$dutch_slc * rnet$segment_length
+sum(rnet$weighteduse[rnet$membership_summary == 1])/sum(rnet$segment_length[rnet$membership_summary == 1])
+sum(rnet$weighteduse[rnet$membership_summary == 2])/sum(rnet$segment_length[rnet$membership_summary == 2])
+
+
+
+

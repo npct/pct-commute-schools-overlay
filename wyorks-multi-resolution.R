@@ -38,13 +38,9 @@ plot(schools,add = TRUE)
 tmap_mode("view")
 tm_shape(heavy_schools) + tm_lines(col = heavy_schools$color)
 
-heavy_commute = rnet_commute[rnet_commute$dutch_slc>100,]
-plot(heavy_commute$geometry,col = heavy_commute$color)
+# heavy_commute = rnet_commute[rnet_commute$dutch_slc>100,]
+# plot(heavy_commute$geometry,col = heavy_commute$color)
 
-
-heavy_schools = rnet_schools[rnet_schools$dutch_slc>100,]
-plot(heavy_schools$geometry,col = heavy_schools$color)
-plot(schools,add = TRUE)
 
 # ##Selecting heavily used routes to school in 2011
 # heavy2011_schools = rnet_schools[rnet_schools$bicycle>5,] %>% na.omit()
@@ -156,18 +152,18 @@ mapview(res_buff)
 
 #############Vector maps of routes to schools###########
 ##ggplot for schools in central Leeds##
-library(ggplot2)
-ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
-
-#version for heavily used routes only
-ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
-
-##same for whole of west yorkshire
-ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
-
-#heavily used routes again (dutch_slc)
-dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-dutch_school
+# library(ggplot2)
+# ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+#
+# #version for heavily used routes only
+# ggplot() + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(427000,431000),ylim = c(432000,436000),expand = FALSE) + theme_bw()
+#
+# ##same for whole of west yorkshire
+# ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
+#
+# #heavily used routes again (dutch_slc)
+# dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+# dutch_school
 
 #Intersch clips routes at the boundary of the builtup area.
 #Intersch_res clips routes at the boundary of the residential areas (<=500m from an LSOA centroid; masked by built-up areas)
@@ -202,18 +198,15 @@ res_routes = tm_shape(mdist) + tm_raster(palette = "-Oranges") + tm_layout(legen
   tm_shape(intersch_res) + tm_lines()
 tmap_save(res_routes,"routes-schools-res.png")
 
-#heavily used routes again (2011 cycling levels)
-now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-now_school
+# #heavily used routes again (2011 cycling levels)
+# now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+# now_school
 
 
 ##Tmap##creating xlim and ylim data sets
-leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
-  st_as_sfc()
+# leeds_centre = st_bbox(c(xmin = 427000, xmax = 431000, ymin = 432000, ymax = 436000), crs = st_crs(rnet_schools)) %>%
+#   st_as_sfc()
 
-
-rnet_schools_omit = na.omit(rnet_schools)
-tm_shape(rnet_schools_omit) + tm_lines("dutch_slc", col = rnet_schools_omit$color)
 
 
 # save results ------------------------------------------------------------
