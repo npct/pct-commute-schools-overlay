@@ -1,7 +1,8 @@
 ---
-output: github_document
+# output: github_document
 # output: word_document
-# output: bookdown::pdf_document2
+output: bookdown::pdf_document2
+# output: bookdown::word_document2
 title: "Methods to identify safe routes to schools in residential areas"
 ---
 
@@ -53,12 +54,16 @@ The raster approach should be helpful in identifying areas where several relativ
 knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_centre.png", "200m_clxm_leeds_centre.png"))
 ```
 
+## Residential zones
+
 We must first identify residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
 
-```{r combi3, out.width="50%", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area."}
+```{r combi3, out.width="50%", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area. (i)(left) Showing routes which are estimated to carry at least 100 journeys to school under the dutch_slc scenario. Schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. (ii)(right) Schools in purple, with residential areas defined as areas within 500m of an LSOA centroid, masked to the ONS-defined built-up area. Routes are clipped within these residential areas."}
 knitr::include_graphics(c("schools_and_lsoa.png","routes-schools-res.png"))
 ```
-(i)(left) Showing routes which are estimated to carry at least 100 journeys to school under the dutch_slc scenario. Schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. (ii)(right) Schools in green, with residential areas defined as areas within 500m of an LSOA centroid. Routes are clipped within the ONS-defined built-up areas.
+
+
+## Connected networks
 
 An additional method we applied to the route network data was to group the streets into connected networks.
 This was to highlight areas, not just single streets, where a dense network of cycle infrastructure could be particularly beneficial. To do this, we selected only the route segments forecast to carry at least 100 school journeys per day under the Go Dutch scenario.
@@ -69,13 +74,19 @@ A simplified visualisation of the results of this grouping process, which was un
 knitr::include_graphics(c("Plots/rnet-membership-4-groups.png","Plots/rnet-group2.png"))
 ```
 
-To gain an even broader picture of where people cycle, we can now combine the routes to schools with cycle routes used for commuting. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this, since in recent decades there were virtually no city centre residents at all. The population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
+## Schools and commuter journeys
+
+To gain an even broader picture of where people cycle, we can now combine the routes to schools with cycle routes used for commuting. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this, since in recent decades there have been very few city centre residents. The population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
 
 ``` {r faceted, out.width="100%", fig.show="hold", fig.cap="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station"}
 knitr::include_graphics("faceted_to_scale.png")
 ```
 
 # Discussion
+
+These analyses provide a range of valuable insights. As well as revealing where people cycle today, we can give information about where new cycle infrastructure would be best placed to enable more children and young people to cycle to school in future. 
+
+Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics.
 
 It is important to be aware that while these route networks can reveal a great deal about where people cycle, any given road section within the network may not necessarily be the one that is best suited to cycling or to cycle improvements. It may be there is a parallel street or off-road route that is better suited to cycling, and knowledge of local streets and conditions is vital here. 
 
