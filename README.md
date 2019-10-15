@@ -73,12 +73,12 @@ might be served by major safe routes to schools. Residential zones are
 defined as built-up areas with a non-zero population, using ONS data
 (ref).
 
-<img src="schools_and_lsoa.png" title="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." alt="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." width="50%" /><img src="routes_schools_intersch.png" title="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." alt="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." width="50%" />
+<img src="schools_and_lsoa.png" title="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." alt="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." width="50%" /><img src="routes-schools-res.png" title="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." alt="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area." width="50%" />
 (i)(left) Showing routes which are estimated to carry at least 100
 journeys to school under the dutch\_slc scenario. Schools are in black,
 with LSOA centroids in yellow, and built-up areas in grey as derived
 from ONS data. (ii)(right) Schools in green, with residential areas
-defined as areas within 800m of an LSOA centroid. Routes are clipped
+defined as areas within 500m of an LSOA centroid. Routes are clipped
 within the ONS-defined built-up areas.
 
 An additional method we applied to the route network data was to group

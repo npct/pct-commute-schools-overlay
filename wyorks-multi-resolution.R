@@ -138,6 +138,8 @@ lsoa_buff = st_buffer(x = wyorks_centroids, dist = 500)
 #now need to mask this for builtup areas only (but the mask() function is for raster objects
 res_buff = st_intersection(builtup,lsoa_buff)
 
+mapview(res_buff)
+
 # x2 <- map_lgl(cont, function(x) {
 #   if (length(x) == 1) {
 #     return(TRUE)
@@ -169,37 +171,36 @@ dutch_school
 
 #Intersch clips routes at the boundary of the builtup area.
 #Intersch_res clips routes at the boundary of the residential areas (<=500m from an LSOA centroid; masked by built-up areas)
-#How to only include routes that are fully within the residential areas? st_within and st_covered_by don't give any output
-##what I really want to do is clip routes at the boundary of the raster  - which combines the builtup area with distance from centroids##
-intersch = st_intersection(heavy_schools,builtup)
+
+# intersch = st_intersection(heavy_schools,builtup)
 intersch_res = st_intersection(heavy_schools,res_buff)
-# coveredsch = st_covered_by(heavy_schools,builtup)
 
 
 ##Extra
 
-ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = intersch$geometry, col = intersch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-
-ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = intersch_res$geometry, col = intersch_res$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-
-# ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = coveredsch$geometry, col = coveredsch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-
-mapview(mdist) + mapview(schools)
-# + mapview(wyorks_c, color = "goldenrod1")
-
-+ coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-
-
-ggplot() + geom_sf(data = builtup) + geom_tile(data = mdist)
-
-
-tmaptools::palette_explorer()
+# ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = intersch$geometry, col = intersch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+#
+# ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = intersch_res$geometry, col = intersch_res$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+#
+# # ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = coveredsch$geometry, col = coveredsch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+#
+# mapview(mdist) + mapview(schools)
+# # + mapview(wyorks_c, color = "goldenrod1")
+#
+# + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+#
+#
+# ggplot() + geom_sf(data = builtup) + geom_tile(data = mdist)
+#
+#
+# tmaptools::palette_explorer()
 
 ##tmap with builtup areas raster, schools and routes to schools all together##Could find way to edit legend title, have simply removed legend altogether instead
 tmap_mode("plot")
-tm_shape(mdist) + tm_raster(palette = "-Oranges") + tm_layout(legend.show = FALSE) +
+res_routes = tm_shape(mdist) + tm_raster(palette = "-Oranges") + tm_layout(legend.show = FALSE) +
   tm_shape(schools) + tm_symbols(col="black",scale = 0.4) +
   tm_shape(intersch_res) + tm_lines()
+tmap_save(res_routes,"routes-schools-res.png")
 
 #heavily used routes again (2011 cycling levels)
 now_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = heavy2011_schools$geometry, col = heavy2011_schools$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()

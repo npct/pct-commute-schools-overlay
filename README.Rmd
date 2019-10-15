@@ -56,9 +56,9 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 We must first identify residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
 
 ```{r combi3, out.width="50%", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area."}
-knitr::include_graphics(c("schools_and_lsoa.png","routes_schools_intersch.png"))
+knitr::include_graphics(c("schools_and_lsoa.png","routes-schools-res.png"))
 ```
-(i)(left) Showing routes which are estimated to carry at least 100 journeys to school under the dutch_slc scenario. Schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. (ii)(right) Schools in green, with residential areas defined as areas within 800m of an LSOA centroid. Routes are clipped within the ONS-defined built-up areas.
+(i)(left) Showing routes which are estimated to carry at least 100 journeys to school under the dutch_slc scenario. Schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. (ii)(right) Schools in green, with residential areas defined as areas within 500m of an LSOA centroid. Routes are clipped within the ONS-defined built-up areas.
 
 An additional method we applied to the route network data was to group the streets into connected networks.
 This was to highlight areas, not just single streets, where a dense network of cycle infrastructure could be particularly beneficial.
