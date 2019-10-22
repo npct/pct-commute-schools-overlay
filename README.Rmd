@@ -61,7 +61,7 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 
 We must first identify residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
 
-```{r combi3, out.width="50%", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area. "}
+```{r combi3, out.height="6.5cm", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area. "}
 knitr::include_graphics(c("schools_and_lsoa.png","routes-schools-res.png"))
 ```
 

@@ -71,9 +71,9 @@ builtupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.ge
 wyorks_centroids = get_pct_centroids("west-yorkshire",geography = "lsoa") %>% sf::st_transform(27700)
 
 # setwd("\\\\ds.leeds.ac.uk/staff/staff7/geojta/GitHub/pct-commute-schools-overlay/west-yorks")
-# wyorks_c = readRDS("c.Rds") %>% st_as_sf(wyorks_c)
+# wyorks_centroids = readRDS("c.Rds") %>% st_as_sf(wyorks_c)
 
-# ggplot() + geom_sf(data = wyorks_c, color = "goldenrod1") + theme_bw()
+ ggplot() + geom_sf(data = wyorks_centroids, color = "goldenrod1") + theme_bw()
 #
 # ggplot() + geom_sf(data = heavy_schools) + geom_sf(data = builtup)
 
@@ -161,9 +161,21 @@ mapview(res_buff)
 # ##same for whole of west yorkshire
 # ggplot() + geom_sf(data = builtup) + geom_sf(data = rnet_schools$geometry, col = rnet_schools$color) + geom_sf(data = schools) + theme_bw()
 #
-# #heavily used routes again (dutch_slc)
-# dutch_school = ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_c, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
-# dutch_school
+#heavily used routes again (dutch_slc)
+##Create map for Figure 3(i)##will try using tmap so it matches the plot in Figure 3(ii)
+ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = heavy_schools$geometry, col = heavy_schools$color) + geom_sf(data = schools) + geom_sf(data = wyorks_centroids, color = "goldenrod1") + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
+
+# ##Crop builtup etc##may need to use bbox to set map extent
+# builtup_leeds = st_crop(builtup,xmin = 410000,xmax = 440000,ymin = 420000,ymax = 447000)
+# box = bb(xlim = c(410000,440000),ylim = c(420000,447000))
+#
+# tmap_mode("plot")
+# builtup_fig = tm_shape(builtup_leeds) + tm_polygons() +
+#   tm_shape(builtupsub) + tm_polygons() +
+#   tm_shape(wyorks_centroids) + tm_symbols(col = "goldenrod1",scale = 0.4) +
+#   tm_shape(schools) + tm_symbols(col="black",scale = 0.4) +
+#   tm_shape(heavy_schools) + tm_lines()
+# tmap_save(builtup_fig,"schools_and_lsoa.png")
 
 #Intersch clips routes at the boundary of the builtup area.
 #Intersch_res clips routes at the boundary of the residential areas (<=500m from an LSOA centroid; masked by built-up areas)
@@ -181,7 +193,7 @@ intersch_res = st_intersection(heavy_schools,res_buff)
 # # ggplot() + geom_sf(data = builtup) + geom_sf(data = builtupsub) + geom_sf(data = coveredsch$geometry, col = coveredsch$color) + geom_sf(data = schools) + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 #
 # mapview(mdist) + mapview(schools)
-# # + mapview(wyorks_c, color = "goldenrod1")
+# # + mapview(wyorks_centroids, color = "goldenrod1")
 #
 # + coord_sf(xlim = c(410000,440000),ylim = c(420000,447000),expand = FALSE) + theme_bw()
 #
