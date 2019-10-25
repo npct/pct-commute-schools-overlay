@@ -3,10 +3,11 @@
 # output: word_document
 output: bookdown::pdf_document2
 # output: bookdown::word_document2
-title: "Methods to identify safe routes to schools in residential areas"
+title: "Safe routes to schools: the value of school travel data for cycle planning"
 header-includes: 
 - \usepackage{float} 
 - \floatplacement{figure}{H}
+- \floatplacement{table}{H}
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -24,17 +25,31 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of this project is to explore how we can identify residential zones that would be served by a major safe route to school.
+The goal of this project is to explore how the incorporation of travel to school data can add additional value to the Propensity to Cycle Tool. We demonstrate how this can be used for a range of purposes, including in combination with travel to work data, to aid in cycle infrastructure planning.
 
-The outputs should provide evidence in support of 'liveable streets', where the emphasis is on reducing car vehicle speeds and volumes, and 'filtered permeability', where through traffic is allowed for cycling and walking, but not driving. Evidence can be used to support improvements such as segregated or on-road cycle routes and to aid in determining where the best locations are for these routes to be built.
+In residential neighbourhoods, various measures have been shown to improve road safety and raise cycling levels, such as the promotion of 'liveable streets' - where the emphasis is on reducing vehicle speeds and volumes (ref), 'filtered permeability' - where through traffic is allowed for cycling and walking, but not driving (ref), and the construction of segregated or on-road cycle routes (ref). But where can these techniques be applied to best effect? We aim to provide the tools that planning officers, consultants or campaigners can use to determine where the best locations are for these measures to be put in place, and the evidence that can be used to support their introduction.
 
-Inactivity is a major cause of a range of physical and mental health conditions and it is especially important that children are physically active. Enabling children to travel safely to school by bicycle will help them to remain active while at the same time contributing to reductions in air pollution, congestion and carbon emissions.
+Using data from Leeds and West Yorkshire, we illustrate:
 
-Reducing air pollution around schools is a key concern. This was recently highlighted by the London Councils Environment Directors' Network and the Association of Directors of Public Health, who called for "action to mitigate pollution hotspots, particularly those around schools" (ref). Meanwhile, Leeds has seen a proposal to build a new car-free primary school, designed with no parking spaces for staff or visitors and where drop-offs will be discouraged (ref). 
+- Different methods of visualising cycle potential across a wide area
 
-Travel to schools can also be seen as a proxy for other journeys within residential areas. In contrast with workplaces, which tend to be highly concentrated in city centres and out-of-town employment zones, schools are much more widely dispersed throughout residential areas such as suburbs, towns and villages; thus school journeys are likely to more closely align with the other non-commute journeys that people make within these residential areas, such as visiting friends or accessing local shops and services. 
+- Residential zones that can be served by a major safe route to school 
 
-We illustrate the potential for safe routes to schools using data from Leeds and West Yorkshire.
+- How to join routes to schools into a series of connected networks and to identify where the largest potential network can be found
+
+- Combining school and commute journeys to explore overall cycle potential. 
+
+## Why cycle to school?
+
+There are numerous reasons why increasing the number of children who cycle to school is an important policy focus right now. Inactivity is a major cause of a range of physical and mental health conditions such as obesity, heart disease, depression..... Childhood obesity remains high .... and if young people are physically active, they are more likely to remain active as they grow older (ref). Enabling children to travel safely to school by bicycle will help them to stay active while at the same time helping to ameliorate a range of other porblems such as air pollution, congestion and carbon emissions.
+
+Reducing air pollution in the vicinity of schools is a key concern. This was recently highlighted by the London Councils Environment Directors' Network and the Association of Directors of Public Health, who called for "action to mitigate pollution hotspots, particularly those around schools" (ref). As well as causing air pollution, driving to the school gate also has serious road safety implications, with accident rates high...  
+
+The UK has committed to zero carbon emissions by 2050, yet according to xxx emissions from transport are projected to rise (ref). To minimise this, we need to move away from private motor vehicle use and towards active travel. Highlighting the current concern surrounding travel to school, Leeds has recently seen a proposal to build a new car-free primary school, designed with no parking spaces for staff or visitors and where drop-offs will be discouraged (ref). 
+
+## Beyond the school gates
+
+Travel to schools can also be seen as a proxy for other journeys within residential areas. In contrast with workplaces, which tend to be highly concentrated in city centres and out-of-town employment zones, schools are much more widely dispersed throughout residential areas such as suburbs, towns and villages; thus school journeys are likely to more closely align with the other non-commute journeys that people make within these residential areas, such as visiting friends or accessing local shops and services. Therefore, combining school and commute travel data can help us to better represent the overall propensity for cycle journeys of a wider range of purposes.
 
 # Methods
 
@@ -59,7 +74,9 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 
 ## Residential zones
 
-We must first identify residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
+One of the applications of this research is to identify residential zones that would be served by a major safe route to school. This can provide evidence supporting interventions to promote cycling in these areas. Individual schools can better understand how to promote cycling and where to focus their attention, and Local Authorities can view the prospects for introducing 'liveables streets' or 'filtered permeability' measures. 
+
+To do this, we must first locate the bounds of residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are defined as built-up areas with a non-zero population, using ONS data (ref). 
 
 ```{r combi3, out.height="6.5cm", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area. "}
 knitr::include_graphics(c("schools_and_lsoa.png","routes-schools-res.png"))
@@ -83,7 +100,13 @@ knitr::include_graphics(c("Plots/rnet-membership-4-groups.png","Plots/rnet-group
 
 To gain an even broader picture of where people cycle, we can now combine the routes to schools with cycle routes used for commuting. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this, since in recent decades there have been very few city centre residents. The population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
 
-People travel for a wide range of purposes. According to the National Travel Survey, in 2018 there were an average of 17 bicycle trips per person per year (ref). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas.  
+
+```{r table1}
+purposes = read.csv("./nts_purposes.csv")
+knitr::kable(purposes,caption = "Cycle trips per person per year (National Travel Survey 2018)")
+```
+
+People travel for a wide range of purposes. As we can see in Table 1, the National Travel Survey 2018 recorded an average of 17 bicycle trips per person per year (ref). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas.  
 
 ``` {r faceted, out.width="100%", fig.show="hold", fig.cap="Route networks of commute, school, combined and weighted cycle propensity in the 5km zone surrounding Leeds Railway Station. In the weighted panel trips to school are given a weighting of 2."}
 knitr::include_graphics("faceted_to_scale.png")
@@ -93,15 +116,10 @@ knitr::include_graphics("faceted_to_scale.png")
 
 These analyses provide a range of valuable insights. As well as revealing where people cycle today, we can give information about where new cycle infrastructure would be best placed to enable more children and young people to cycle to school in future. 
 
-```{r combi6}
-purposes = data.frame(Purpose = c("Commuting","Business",""))
-sec_schools
-```
-
-Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics.
+The tools shown here can be used to 
 
 It is important to be aware that while these route networks can reveal a great deal about where people cycle, any given road section within the network may not necessarily be the one that is best suited to cycling or to cycle improvements. It may be there is a parallel street or off-road route that is better suited to cycling, and knowledge of local streets and conditions is vital here. 
 
 For example, the vector map of the centre of Leeds shown in Figure \@ref(fig:combi2) shows a high-usage cycle route passing along Albion Street, Short Street and Lower Basinghall Street. This is a heavily used cycle corridor leading towards Leeds rail station, but local knowledge suggests that a more appropriate route for these journeys would most likely be on the nearby Park Row, which runs broadly parallel to these streets. Thus, this tool can provide an invaluable representation of the cycle route networks in a town or city, but a decision to undertake cycle improvements on a particular street also requires detailed knowledge of the local road conditions. This is the kind of information that CyIPT has been developed to assist in providing.
 
-Further investigation is required into the overall distribution of journey purposes. 
+Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics. Further investigation is also required into the overall distribution of journey purposes, and to best represent leisure journeys etc. 
