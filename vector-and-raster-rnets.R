@@ -44,7 +44,17 @@ rnet_combined = stplanr::overline2(x = combine, attrib = "dutch_slc")
 
 rnet_combined$color = cut(x = rnet_combined$dutch_slc, breaks = breaks, labels = colors)
 rnet_combined$color = as.character(rnet_combined$color)
-plot(rnet_combined$geometry, col = rnet_combined$color)
+# plot(rnet_combined$geometry, col = rnet_combined$color)
+
+
+##Create a combined route network in which the schools component has double weighting
+schools_doubled = mutate(schools_less, dutch_slc = dutch_slc*2)
+weighted_combine = rbind(commute_less,schools_doubled)
+rnet_weighted = stplanr::overline2(x = weighted_combine, attrib = "dutch_slc")
+
+rnet_weighted$color = cut(x = rnet_weighted$dutch_slc, breaks = breaks, labels = colors)
+rnet_weighted$color = as.character(rnet_weighted$color)
+
 
 
 #########Rasterisation (1000m resolution)###########
@@ -132,8 +142,8 @@ names(rnet_combined)
 names(rnet_commute)
 names(rnet_schools)
 
-leeds = ukboundaries::leeds %>% st_transform(27700)
-leeds_centre = leeds %>% st_centroid()
+# leeds = ukboundaries::leeds %>% st_transform(27700)
+# leeds_centre = leeds %>% st_centroid()
 library(osmdata)
 leeds_rail_station = opq("leeds") %>%
   add_osm_feature("railway", "station") %>%
@@ -146,14 +156,30 @@ leeds = leeds_centre %>% st_buffer(5000)
 rnet1 = rnet_commute[leeds,] %>% dplyr::select(dutch_slc) %>% mutate(layer = "commute")
 rnet2 = rnet_schools[leeds,] %>% dplyr::select(dutch_slc) %>% mutate(layer = "school")
 rnet3 = rnet_combined[leeds,] %>% dplyr::select(dutch_slc) %>% mutate(layer = "combined")
+rnet4 = rnet_weighted[leeds,] %>% dplyr::select(dutch_slc) %>% mutate(layer = "weighted")
 
-rnet_all = rbind(rnet1, rnet2, rnet3)
-rnet_all$layer = factor(x = rnet_all$layer, levels = c("commute", "school", "combined"))
+rnet_all = rbind(rnet1, rnet2, rnet3, rnet4)
+rnet_all$layer = factor(x = rnet_all$layer, levels = c("commute", "school", "combined", "weighted"))
 levels(rnet_all$layer)
-tm_shape(rnet_all) +
+p4 = tm_shape(rnet_all) +
   tm_lines(lwd = "dutch_slc", legend.lwd.show = F, scale = 9) +
-  tm_facets(by = "layer",nrow = 1,ncol = 3)
-tmap_save(.Last.value,"faceted-map-leeds.png")
+  tm_facets(by = "layer",nrow = 1,ncol = 4)
+#tmap_save(p4,"faceted-map-leeds.png", height = 757, width = 2341)
+#Saved from GUI as faceted_to_scale.png
+
+#Check image attributes
+library(png)
+img1_path <- "./faceted_to_scale.png"
+img1 <- readPNG(img1_path, native = TRUE, info = TRUE)
+attr(img1, "info")
+magick::image_read("./faceted_to_scale.png")
+
+img2_path <- "./faceted-map-leeds.png"
+img2 <- readPNG(img2_path, native = TRUE, info = TRUE)
+attr(img2, "info")
+magick::image_read("./faceted-map-leeds.png")
+
+
 # ###Putting schools on a route network map
 # plot(rnet_schools$geometry,col = rnet_schools$color)
 # plot(schools,add = TRUE)

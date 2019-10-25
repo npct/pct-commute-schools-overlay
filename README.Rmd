@@ -32,7 +32,7 @@ Inactivity is a major cause of a range of physical and mental health conditions 
 
 Reducing air pollution around schools is a key concern. This was recently highlighted by the London Councils Environment Directors' Network and the Association of Directors of Public Health, who called for "action to mitigate pollution hotspots, particularly those around schools" (ref). Meanwhile, Leeds has seen a proposal to build a new car-free primary school, designed with no parking spaces for staff or visitors and where drop-offs will be discouraged (ref). 
 
-Travel to schools can also be seen as a way of representing other journeys within residential areas. In contrast with workplaces, which tend to be highly concentrated in city centres and out-of-town employment zones, schools are much more widely dispersed throughout residential areas such as suburbs, towns and villages; thus school journeys are likely to more closely align with the other non-commute journeys that people make within these residential areas, such as visiting friends or accessing local shops and services. 
+Travel to schools can also be seen as a proxy for other journeys within residential areas. In contrast with workplaces, which tend to be highly concentrated in city centres and out-of-town employment zones, schools are much more widely dispersed throughout residential areas such as suburbs, towns and villages; thus school journeys are likely to more closely align with the other non-commute journeys that people make within these residential areas, such as visiting friends or accessing local shops and services. 
 
 We illustrate the potential for safe routes to schools using data from Leeds and West Yorkshire.
 
@@ -83,7 +83,9 @@ knitr::include_graphics(c("Plots/rnet-membership-4-groups.png","Plots/rnet-group
 
 To gain an even broader picture of where people cycle, we can now combine the routes to schools with cycle routes used for commuting. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this, since in recent decades there have been very few city centre residents. The population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
 
-``` {r faceted, out.width="100%", fig.show="hold", fig.cap="Route networks of commute, school and combined cycle propensity in the 5km zone surrounding Leeds Railway Station"}
+People travel for a wide range of purposes. According to the National Travel Survey, in 2018 there were an average of 17 bicycle trips per person per year (ref). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas.  
+
+``` {r faceted, out.width="100%", fig.show="hold", fig.cap="Route networks of commute, school, combined and weighted cycle propensity in the 5km zone surrounding Leeds Railway Station. In the weighted panel trips to school are given a weighting of 2."}
 knitr::include_graphics("faceted_to_scale.png")
 ```
 
@@ -91,9 +93,15 @@ knitr::include_graphics("faceted_to_scale.png")
 
 These analyses provide a range of valuable insights. As well as revealing where people cycle today, we can give information about where new cycle infrastructure would be best placed to enable more children and young people to cycle to school in future. 
 
+```{r combi6}
+purposes = data.frame(Purpose = c("Commuting","Business",""))
+sec_schools
+```
+
 Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics.
 
 It is important to be aware that while these route networks can reveal a great deal about where people cycle, any given road section within the network may not necessarily be the one that is best suited to cycling or to cycle improvements. It may be there is a parallel street or off-road route that is better suited to cycling, and knowledge of local streets and conditions is vital here. 
 
 For example, the vector map of the centre of Leeds shown in Figure \@ref(fig:combi2) shows a high-usage cycle route passing along Albion Street, Short Street and Lower Basinghall Street. This is a heavily used cycle corridor leading towards Leeds rail station, but local knowledge suggests that a more appropriate route for these journeys would most likely be on the nearby Park Row, which runs broadly parallel to these streets. Thus, this tool can provide an invaluable representation of the cycle route networks in a town or city, but a decision to undertake cycle improvements on a particular street also requires detailed knowledge of the local road conditions. This is the kind of information that CyIPT has been developed to assist in providing.
 
+Further investigation is required into the overall distribution of journey purposes. 
