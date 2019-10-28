@@ -1,7 +1,7 @@
 ---
 # output: github_document
-# output: word_document
-output: bookdown::pdf_document2
+output: word_document
+# output: bookdown::pdf_document2
 # output: bookdown::word_document2
 title: "Safe routes to schools: the value of school travel data for cycle planning"
 header-includes: 
@@ -77,23 +77,27 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 
 ## Residential zones
 
-Another application of this research is to identify residential zones that would be served by a major safe route to school. This can provide evidence supporting interventions to promote cycling in these areas. Individual schools can better understand how to promote cycling and where to focus their attention, and Local Authorities can view the prospects for introducing 'liveable streets' or 'filtered permeability' measures. 
+Another application of this research is to identify residential zones that would be served by a major safe route to school. This can provide evidence supporting interventions to promote cycling in these areas. Individual schools can better understand how to promote cycling and where to focus their attention, and Local Authorities can view the prospects for introducing measures such as 'liveable streets' or 'filtered permeability.' As well as aiding travel to school, measures within residential zones are likely to be beneficial for other cycle journeys and for road safety in general.
 
-To do this, we must first locate the bounds of residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are identified using built-up areas as defined in ONS data (ref). 
+To do this, we must first locate the bounds of residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are identified using built-up areas as defined in ONS data (ref), then further refined using distance from LSOA centroids.
 
 ```{r combi3, out.height="6.5cm", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area. "}
 knitr::include_graphics(c("schools_and_lsoa.png","routes-schools-res.png"))
 ```
 
-On the left, Figure 3 shows routes which are estimated to carry at least 100 journeys to school under the dutch_slc scenario. Schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. On the right it shows schools in purple, with residential areas defined as areas within 500m of an LSOA centroid, masked to the ONS-defined built-up area. Routes are clipped within these residential areas.
+Figure 3 shows routes which are estimated to carry at least 100 journeys to school under the Go Dutch scenario. On the left, schools are in black, with LSOA centroids in yellow, and built-up areas in grey as derived from ONS data. On the right, schools are in purple, with residential areas defined as areas within 500m of an LSOA centroid, masked to the ONS-defined built-up area. Routes are clipped within these residential areas.
+
+We can now see where the major routes to school coincide with residential areas.
 
 
 ## Connected networks
 
 An additional method we applied to the route network data was to group the streets into connected networks.
-This was to highlight areas, not just single streets, where a dense network of cycle infrastructure could be particularly beneficial. To do this, we selected only the route segments forecast to carry at least 100 school journeys per day under the Go Dutch scenario.
+This was to highlight larger areas, not just single streets or school catchments, where a dense network of cycle infrastructure could be particularly beneficial. To do this, we again selected only the route segments forecast to carry at least 100 school journeys per day under the Go Dutch scenario.
 
 A simplified visualisation of the results of this grouping process, which was undertaken using the graph analysis R package `igraph`, is shown in Figure \@ref(fig:rnet-membership). The largest network is centred on the city of Bradford, including routes connecting to Bingley and Keighley in the northwest and Queensbury in the southwest. This network has a total length of 128km, with an average of 265 cyclists per day passing any given point on the network under the Go Dutch scenario. The second largest network is in North Leeds and has a total length of 69km, with any given point on the network seeing an average of 229 cyclists per day under the Go Dutch scenario.
+
+The assigning of routes to schools into networks such as these allows analysis at both zoomed out and fine grained scales, and enables the identification of natural cycle catchment areas.
 
 ```{r rnet-membership, out.width="50%", fig.show='hold', fig.cap="Route networks with high cycle to school potential (100+ trips per day under Go Dutch) grouped by connectivity, with the largest 4 groups in terms of number of segments highlighted by colour (left). A zoomed-in view of the second largest group."}
 knitr::include_graphics(c("Plots/rnet-membership-4-groups.png","Plots/rnet-group2.png"))
@@ -101,7 +105,7 @@ knitr::include_graphics(c("Plots/rnet-membership-4-groups.png","Plots/rnet-group
 
 ## Schools and commuter journeys
 
-To gain an even broader picture of where people cycle, we can now combine the routes to schools with cycle routes used for commuting. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this, since in recent decades there have been very few city centre residents. The population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
+To gain a broader picture of where people cycle, we can combine routes to schools with cycle routes used for commuting. This will be of benefit for holistic travel planning, since the more types of journey modelled, the closer we will be to understanding the overall pattern of cycle flows. As we've seen, travel to schools mostly takes place within residential areas, while commuter journeys are more strongly focused on town and city centres. Leeds provides a striking illustration of this, since in recent decades there have been very few city centre residents. The population of Leeds city centre is now rising (this mostly post-dates the 2011 Census) but it remains low, and there are no schools within the core city centre. The combined analysis of commuter and school journeys reveals propensity to cycle across the city as a whole.
 
 
 ```{r table1}
@@ -109,7 +113,7 @@ purposes = read.csv("./nts_purposes.csv")
 knitr::kable(purposes,caption = "Cycle trips per person per year (National Travel Survey 2018)")
 ```
 
-People travel for a wide range of purposes. As we can see in Table 1, the National Travel Survey 2018 recorded an average of 17 bicycle trips per person per year (ref). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas.  
+People travel for a wide range of purposes. As we can see in Table 1, the National Travel Survey 2018 recorded an average of 17 bicycle trips per person per year (DfT 2019). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas.  
 
 ``` {r faceted, out.width="100%", fig.show="hold", fig.cap="Route networks of commute, school, combined and weighted cycle propensity in the 5km zone surrounding Leeds Railway Station. In the weighted panel trips to school are given a weighting of 2."}
 knitr::include_graphics("faceted_to_scale.png")
@@ -119,13 +123,13 @@ knitr::include_graphics("faceted_to_scale.png")
 
 These analyses provide a range of valuable insights. As well as revealing where people cycle today, we can give information about where new cycle infrastructure would be best placed to enable more children and young people to cycle to school in future. 
 
-The tools shown here can be used to 
+The tools shown here can be used to investigate patterns of cycle propensity at various scales; to explore the best locations for new cycle-related infrastructure, and how this relates to residential areas; to identify key cycle catchments; and to investigate the distribution of cycle journeys for different purposes.
 
 It is important to be aware that while these route networks can reveal a great deal about where people cycle, any given road section within the network may not necessarily be the one that is best suited to cycling or to cycle improvements. It may be there is a parallel street or off-road route that is better suited to cycling, and knowledge of local streets and conditions is vital here. 
 
-For example, the vector map of the centre of Leeds shown in Figure \@ref(fig:combi2) shows a high-usage cycle route passing along Albion Street, Short Street and Lower Basinghall Street. This is a heavily used cycle corridor leading towards Leeds rail station, but local knowledge suggests that a more appropriate route for these journeys would most likely be on the nearby Park Row, which runs broadly parallel to these streets. Thus, this tool can provide an invaluable representation of the cycle route networks in a town or city, but a decision to undertake cycle improvements on a particular street also requires detailed knowledge of the local road conditions. This is the kind of information that CyIPT has been developed to assist in providing.
+For example, the vector map of the centre of Leeds shown in Figure \@ref(fig:combi2) shows a high-usage cycle route passing along Albion Street, Short Street and Lower Basinghall Street. This is a heavily used cycle corridor leading towards Leeds rail station, but local knowledge suggests that a more appropriate route for these journeys would most likely be on the nearby Park Row, which runs broadly parallel to these streets. Thus, this tool can provide an invaluable representation of the cycle route networks in a town or city, but a decision to undertake cycle improvements on a particular street also requires detailed knowledge of the local road conditions. This is the kind of information that CyIPT has been developed to assist in providing (Leeds 2018).
 
-Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics. Further investigation is also required into the overall distribution of journey purposes, and to best represent leisure journeys etc. 
+Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics. Further investigation is also required into the overall distribution of journey purposes, and how to best represent other types of journey such as shopping or leisure journeys. 
 
 # References
 
@@ -133,9 +137,13 @@ BEIS. ‘Provisional UK Greenhouse Gas Emissions National Statistics 2018’. Ac
 
 ‘BMA - Steps to Increase Physical Activity Levels in the UK’. Accessed 28 October 2019. https://www.bma.org.uk/collective-voice/policy-and-research/public-and-population-health/steps-to-increase-physical-activity-levels-in-the-uk.
 
+DfT. ‘National Travel Survey: 2018’. Accessed 28 October 2019. https://www.gov.uk/government/statistics/national-travel-survey-2018.
+
 Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. ‘Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the “Propensity to Cycle Tool”’. Journal of Transport & Health 12 (1 March 2019): 263–78. 
 
 ‘London Environment Directors’ Network | London Councils’. Accessed 28 October 2019. https://www.londoncouncils.gov.uk/our-key-themes/environment/london-environment-directors-network.
+
+Leeds, The CyIPT team, led by University of. The Cycling Infrastructure Prioritisation Toolkit. Accessed 28 October 2019. Last updated 9 April 2018. https://www.cyipt.bike/report1/.
 
 Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. ‘The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning’. Journal of Transport and Land Use 10, no. 1 (2017): 505–28.
 
