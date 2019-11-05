@@ -1,7 +1,7 @@
 ---
 # output: github_document
-output: word_document
-# output: bookdown::pdf_document2
+# output: word_document
+output: bookdown::pdf_document2
 # output: bookdown::word_document2
 title: "Safe routes to schools: the value of school travel data for cycle planning"
 header-includes: 
@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 
 The goal of this project is to explore how the incorporation of travel to school data can add additional value to the Propensity to Cycle Tool. We demonstrate how this can be used for a range of purposes, including in combination with travel to work data, to aid in cycle infrastructure planning.
 
-In residential neighbourhoods, various measures have been shown to improve road safety and raise cycling levels, such as the promotion of 'liveable streets' - where the emphasis is on reducing vehicle speeds and volumes (ref), 'filtered permeability' - where through traffic is allowed for cycling and walking, but not driving (ref), and the construction of segregated or on-road cycle routes (ref). But where can these techniques be applied to best effect? We aim to provide the tools that planning officers, consultants or others can use to determine where the best locations are for these measures to be put in place, and the evidence that can be used to support their introduction.
+In residential neighbourhoods, various measures have been shown to improve road safety and raise cycling levels, such as the promotion of 'liveable streets' - where the emphasis is on reducing vehicle speeds and volumes (TfL 2019), 'filtered permeability' - where through traffic is allowed for cycling and walking, but not driving (Melia 2015), and the construction of segregated or on-road cycle routes (Aldred et al. 2017). But where can these techniques be applied to best effect? We aim to provide the tools that planning officers, consultants or others can use to determine where the best locations are for these measures to be put in place, and the evidence that can be used to support their introduction.
 
 Using data from Leeds and West Yorkshire, we illustrate:
 
@@ -133,6 +133,8 @@ Other factors that could be worth investigating further include road safety and 
 
 # References
 
+Aldred, Rachel, Bridget Elliott, James Woodcock, and Anna Goodman. ‘Cycling Provision Separated from Motor Traffic: A Systematic Review Exploring Whether Stated Preferences Vary by Gender and Age’. Transport Reviews 37, no. 1 (2 January 2017): 29–55. https://doi.org/10.1080/01441647.2016.1200156.
+
 BEIS. ‘Provisional UK Greenhouse Gas Emissions National Statistics 2018’. Accessed 28 October 2019. https://www.gov.uk/government/statistics/provisional-uk-greenhouse-gas-emissions-national-statistics-2018.
 
 ‘BMA - Steps to Increase Physical Activity Levels in the UK’. Accessed 28 October 2019. https://www.bma.org.uk/collective-voice/policy-and-research/public-and-population-health/steps-to-increase-physical-activity-levels-in-the-uk.
@@ -146,6 +148,12 @@ Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkof
 Leeds, The CyIPT team, led by University of. The Cycling Infrastructure Prioritisation Toolkit. Accessed 28 October 2019. Last updated 9 April 2018. https://www.cyipt.bike/report1/.
 
 Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. ‘The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning’. Journal of Transport and Land Use 10, no. 1 (2017): 505–28.
+
+Melia, Steve. Urban Transport without the Hot Air: Volume 1: Sustainable Solutions for UK Cities. Cambridge, UNITED KINGDOM: UIT Cambridge Ltd., 2015. 
+
+Pezzagno, Michèle, and Maurizio Tira. Town and Infrastructure Planning for Safety and Urban Quality: Proceedings of the XXIII International Conference on Living and Walking in Cities (LWC 2017), June 15-16, 2017, Brescia, Italy. CRC Press, 2018.
+
+‘TfL Liveable Neighbourhoods Programme’, n.d., 91. 2019.
 
 Walton, Heather, David Dajnak, Sean Beevers, Martin Williams, Paul Watkiss, and Alistair Hunt. ‘Understanding the Health Impacts of Air Pollution in London’. London: Kings College London, Transport for London and the Greater London Authority, 2015.
 
