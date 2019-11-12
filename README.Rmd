@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 
 The goal of this project is to explore how the incorporation of travel to school data can add additional value to the Propensity to Cycle Tool. We demonstrate how this can be used for a range of purposes, including in combination with travel to work data, to aid in cycle infrastructure planning.
 
-In residential neighbourhoods, various measures have been shown to improve road safety and raise cycling levels, such as the promotion of 'liveable streets' - where the emphasis is on reducing vehicle speeds and volumes (TfL 2019), 'filtered permeability' - where through traffic is allowed for cycling and walking, but not driving (Melia 2015), and the construction of segregated or on-road cycle routes (Aldred et al. 2017). But where can these techniques be applied to best effect? We aim to provide the tools that planning officers, consultants or others can use to determine where the best locations are for these measures to be put in place, and the evidence that can be used to support their introduction.
+In residential neighbourhoods, various measures have been shown to improve road safety and raise cycling levels, such as the promotion of 'liveable streets' - where the emphasis is on reducing vehicle speeds and volumes (TfL 2019), 'filtered permeability' - where elements of separation give sustainable modes an advantage over private motor traffic in terms of speed, distance and convenience (Melia 2015), and the construction of protected or on-road cycle routes (Aldred et al. 2017). But where can these techniques be applied to best effect? We aim to provide the tools that planning officers, consultants or others can use to determine where the best locations are for these measures to be put in place, and the evidence that can be used to support their introduction.
 
 Using data from Leeds and West Yorkshire, we illustrate:
 
@@ -43,7 +43,7 @@ Using data from Leeds and West Yorkshire, we illustrate:
 
 There are numerous reasons why increasing the number of children who cycle to school is an important policy goal. Inactivity is a major cause of a range of physical and mental health conditions. Meeting recommended levels of physical activity can prevent or manage 20 chronic health conditions and diseases, help people to maintain a healthy weight, and reduce the risk of mental health conditions such as depression, stress and anxiety, as well as providing opportunities for social interactions (BMA 2019). Only 22% of children in England and 18% of children in Wales are currently achieving the Chief Medical Officers' recommendation of 60 minutes of physical activity per day, outside of in-school activities (BMA 2019). Enabling children to travel safely to school by bicycle will help them to stay active while at the same time helping to ameliorate a range of other problems such as air pollution, congestion and carbon emissions.
 
-Reducing air pollution in the vicinity of schools is a key concern. In London alone, nearly 9,500 premature deaths each year are attributable to poor air quality (Walton et al. 2015). This was recently highlighted by the London Councils Environment Directors' Network and the Association of Directors of Public Health, who call for "action to mitigate pollution hotspots, particularly those around schools" (London Environment Directors' Network 2019). As well as causing air pollution, driving to the school gate can also have serious road safety implications (ref).
+Reducing air pollution in the vicinity of schools is a key concern. In London alone, nearly 9,500 premature deaths each year are attributable to poor air quality (Walton et al. 2015). This was recently highlighted by the London Councils Environment Directors' Network and the Association of Directors of Public Health, who call for "action to mitigate pollution hotspots, particularly those around schools" (London Environment Directors' Network 2019). As well as causing air pollution, driving to the school gate can also have serious road safety implications (Kingham et al. 2011).
 
 The UK has committed to zero carbon emissions by 2050, yet while CO~2~ emissions from energy generation have fallen, emissions from transport remain high. In 2018, transport was the single largest-emitting sector, responsible for 33% of UK CO~2~ emissions (BEIS 2019). To minimise this, we need to move away from private motor vehicle use and towards active travel. Highlighting the current concern surrounding travel to schools, Leeds has recently seen a proposal to build a new car-free primary school, designed with no parking spaces for staff or visitors and where drop-offs will be discouraged. 
 
@@ -79,7 +79,7 @@ knitr::include_graphics(c("combined_rnet_leeds_centre.png", "100m_clxm_leeds_cen
 
 Another application of this research is to identify residential zones that would be served by a major safe route to school. This can provide evidence supporting interventions to promote cycling in these areas. Individual schools can better understand how to promote cycling and where to focus their attention, and Local Authorities can view the prospects for introducing measures such as 'liveable streets' or 'filtered permeability.' As well as aiding travel to school, measures within residential zones are likely to be beneficial for other cycle journeys and for road safety in general.
 
-To do this, we must first locate the bounds of residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are identified using built-up areas as defined in ONS data (ref), then further refined using distance from LSOA centroids.
+To do this, we must first locate the bounds of residential zones then look at where these zones might be served by major safe routes to schools. Residential zones are identified using built-up areas as defined in ONS data (ONS 2019), then further refined using distance from LSOA centroids.
 
 ```{r combi3, out.height="6.5cm", fig.show='hold', fig.cap="The location of schools, residential areas, and heavily used routes to schools in the Leeds and Bradford area. "}
 knitr::include_graphics(c("schools_and_lsoa.png","routes-schools-res.png"))
@@ -113,7 +113,9 @@ purposes = read.csv("./nts_purposes.csv")
 knitr::kable(purposes,caption = "Cycle trips per person per year (National Travel Survey 2018)")
 ```
 
-People travel for a wide range of purposes. As we can see in Table 1, the National Travel Survey 2018 recorded an average of 17 bicycle trips per person per year (DfT 2019). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas.  
+People travel for a wide range of purposes. As we can see in Table 1, the National Travel Survey 2018 recorded an average of 17 bicycle trips per person per year (DfT 2019). Of these, 6 were for commuting, 2 were for education/escort education, and the remainder were for various other purposes including leisure, shopping and personal business. However, this underestimates the potential uptake of cycling for non-commute purposes. In England, 3.3% of commute trip stages are currently cycled, but this falls to 1.9% for leisure trips, 1.3% for education/escort education, and below 1% for personal business and shopping (Aldred 2019). In high cycling countries such as the Netherlands this discrepancy between commute and other trip purposes does not exist. Thus the PCT Go Dutch scenarios record close to a six-fold increase in cycle commuting but a 22-fold increase in cycling to school (CEDAR 2017; Goodman et al. 2019).
+
+To illustrate how the overall distribution of cycle trips can be represented, we included in the final panel of figure 5 a combined route network in which the weighting of the cycle to school component is doubled. This is in recognition that travel to school is likely to be better than travel to work at providing a proxy for the other types of journey that take place within residential areas, and that there is greater scope for increased uptake of cycling for these trip purposes than there is for commuting.
 
 ``` {r faceted, out.width="100%", fig.show="hold", fig.cap="Route networks of commute, school, combined and weighted cycle propensity in the 5km zone surrounding Leeds Railway Station. In the weighted panel trips to school are given a weighting of 2."}
 knitr::include_graphics("faceted_to_scale.png")
@@ -129,19 +131,25 @@ It is important to be aware that while these route networks can reveal a great d
 
 For example, the vector map of the centre of Leeds shown in Figure \@ref(fig:combi2) shows a high-usage cycle route passing along Albion Street, Short Street and Lower Basinghall Street. This is a heavily used cycle corridor leading towards Leeds rail station, but local knowledge suggests that a more appropriate route for these journeys would most likely be on the nearby Park Row, which runs broadly parallel to these streets. Thus, this tool can provide an invaluable representation of the cycle route networks in a town or city, but a decision to undertake cycle improvements on a particular street also requires detailed knowledge of the local road conditions. This is the kind of information that CyIPT has been developed to assist in providing (Leeds 2018).
 
-Other factors that could be worth investigating further include road safety and how the locations of accident blackspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics. Further investigation is also required into the overall distribution of journey purposes, and how to best represent other types of journey such as shopping or leisure journeys. 
+Other factors that could be worth investigating further include road safety and how the locations of collision hotspots match up with heavily cycled routes. It would also be interesting to look at which schools currently have the highest levels of cycling and whether those schools share certain characteristics. Further investigation is also required into the overall distribution of journey purposes, and how to best represent other types of journey such as shopping or leisure journeys. 
 
 # References
+
+Aldred, Rachel. 'Variation in active travel and the scope to increase participation: an analysis of Active People Survey and National Travel Survey data'. Commissioned by Sport England from the University of Westminster (September 2019). Accessed 12 November 2019. https://www.sportengland.org/media/14214/variation-in-active-travel-and-the-scope-to-increase-participation.pdf
 
 Aldred, Rachel, Bridget Elliott, James Woodcock, and Anna Goodman. ‘Cycling Provision Separated from Motor Traffic: A Systematic Review Exploring Whether Stated Preferences Vary by Gender and Age’. Transport Reviews 37, no. 1 (2 January 2017): 29–55. https://doi.org/10.1080/01441647.2016.1200156.
 
 BEIS. ‘Provisional UK Greenhouse Gas Emissions National Statistics 2018’. Accessed 28 October 2019. https://www.gov.uk/government/statistics/provisional-uk-greenhouse-gas-emissions-national-statistics-2018.
 
-‘BMA - Steps to Increase Physical Activity Levels in the UK’. Accessed 28 October 2019. https://www.bma.org.uk/collective-voice/policy-and-research/public-and-population-health/steps-to-increase-physical-activity-levels-in-the-uk.
+‘BMA - Steps to Increase Physical Activity Levels in the UK’. Accessed 28 October 2019. https://www.bma.org.uk/collective-voice/policy-and-research/public-and-population-health/ steps-to-increase-physical-activity-levels-in-the-uk.
 
 DfT. ‘National Travel Survey: 2018’. Accessed 28 October 2019. https://www.gov.uk/government/statistics/national-travel-survey-2018.
 
+UKCRC Centre for Diet and Activity Research (CEDAR). ‘Evidence Brief Special (14) - England’s Cycling Potential – Results from the Department for Transport-funded Propensity to Cycle Tool project, February 2017.’ Accessed 12 November 2019. https://www.cedar.iph.cam.ac.uk/resources/evidence/eb-14-englands-cycling-potential/. 
+
 Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. ‘Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the “Propensity to Cycle Tool”’. Journal of Transport & Health 12 (1 March 2019): 263–78. 
+
+Kingham, Simon, Clive E. Sabel, and Phil Bartie. ‘The Impact of the “School Run” on Road Traffic Accidents: A Spatio-Temporal Analysis’. Journal of Transport Geography 19, no. 4 (1 July 2011): 705–11. https://doi.org/10.1016/j.jtrangeo.2010.08.011.
 
 ‘London Environment Directors’ Network | London Councils’. Accessed 28 October 2019. https://www.londoncouncils.gov.uk/our-key-themes/environment/london-environment-directors-network.
 
@@ -151,7 +159,7 @@ Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and Ja
 
 Melia, Steve. Urban Transport without the Hot Air: Volume 1: Sustainable Solutions for UK Cities. Cambridge, UNITED KINGDOM: UIT Cambridge Ltd., 2015. 
 
-Pezzagno, Michèle, and Maurizio Tira. Town and Infrastructure Planning for Safety and Urban Quality: Proceedings of the XXIII International Conference on Living and Walking in Cities (LWC 2017), June 15-16, 2017, Brescia, Italy. CRC Press, 2018.
+ONS. ‘Built-up Area Sub Divisions (December 2011) Boundaries’. Accessed 12 November 2019. https://geoportal.statistics.gov.uk/datasets/built-up-area-sub-divisions-december-2011-boundaries.
 
 ‘TfL Liveable Neighbourhoods Programme’, n.d., 91. 2019.
 
