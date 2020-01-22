@@ -61,8 +61,8 @@ tm_shape(heavy_schools) + tm_lines(col = heavy_schools$color)
 ##Built-up areas
 # setwd("~/GitHub/pct-commute-schools-overlay")
 # setwd("/home/rstudio/data/npct/pct-commute-schools-overlay")
-builtup = sf::read_sf("Builtup_Areas_December_2011_Boundaries_V2.geojson") %>% sf::st_transform(27700)
-builtupsub = sf::read_sf("Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
+builtup = sf::read_sf("https://github.com/npct/pct-commute-schools-overlay/raw/master/Builtup_Areas_December_2011_Boundaries_V2.geojson") %>% sf::st_transform(27700)
+builtupsub = sf::read_sf("https://github.com/npct/pct-commute-schools-overlay/raw/master/Builtup_Area_Sub_Divisions_December_2011_Boundaries.geojson") %>% sf::st_transform(27700)
 # builtup_jun17 = sf::read_sf("Builtup_Areas_December_2011_Boundaries_jun17.geojson") %>% sf::st_transform(27700)
 
 
