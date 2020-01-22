@@ -73,8 +73,8 @@ wyorks_centroids = get_pct_centroids("west-yorkshire",geography = "lsoa") %>% sf
 # setwd("\\\\ds.leeds.ac.uk/staff/staff7/geojta/GitHub/pct-commute-schools-overlay/west-yorks")
 # wyorks_centroids = readRDS("c.Rds") %>% st_as_sf(wyorks_c)
 
- ggplot() + geom_sf(data = wyorks_centroids, color = "goldenrod1") + theme_bw()
-#
+ggplot() + geom_sf(data = wyorks_centroids, color = "goldenrod1") + theme_bw()
+
 # ggplot() + geom_sf(data = heavy_schools) + geom_sf(data = builtup)
 
 #########Now need to create a raster layer showing number of LSOA centroids within 500m
